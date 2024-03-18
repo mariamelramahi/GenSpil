@@ -56,29 +56,33 @@ namespace Genspil
             Customer Customer = new Customer(name1, emailadress1, phonenumber1);
             return Customer;
         }
-        public Request AddRequest()
-        {
-            Console.WriteLine("Vil du søge efter eksisterende kunde (1), eller oprette en ny kunde? (2): ");
-            int answer = int.Parse(Console.ReadLine());
-            if (answer == 1)
-            {
-                //Customerslist
-            }
-            else if (answer ==2) 
-            {
-                AddCustomer(); 
-            }
-            else
-            {
-                Console.WriteLine("Ugyldigt input, prøv igen: ");
-                AddRequest();
-            }
-            Console.WriteLine("Indtast navn på spil: ");
-            string gamename = Console.ReadLine();
-            Console.WriteLine("Indtast navn på kunde")
+        //public Request AddRequest()
+        //{
+        //    Console.WriteLine("Vil du søge efter eksisterende kunde (1), eller oprette en ny kunde? (2): ");
+        //    int answer = int.Parse(Console.ReadLine());
+        //    if (answer == 1)
+        //    {
+                
+        //    }
+        //    else if (answer ==2) 
+        //    {
+        //        AddCustomer(); 
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Ugyldigt input, prøv igen: ");
+        //        AddRequest();
+        //    }
+        //    Console.WriteLine("Indtast navn på spil: ");
+        //    string gamename = Console.ReadLine();
+            
+            
+        //    //Request Request = new Request(gamename, customer);
+        //    //return Request; 
+        //}
+        //public Customer FindCustomer(string name)
+        //{
 
-            Request Request = new Request(gamename, customer);
-            return Request; 
-        }
+        //}
     }
 }
