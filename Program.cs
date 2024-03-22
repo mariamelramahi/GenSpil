@@ -53,16 +53,19 @@ namespace Genspil
         {
             Console.Write("Indtast venligst fornavn: ");
             string name1 = Console.ReadLine();
-            Console.WriteLine("Indtast venligst efternavn: ");
+            Console.Write("Indtast venligst efternavn: ");
             string lastname = Console.ReadLine();
-            Console.WriteLine("Indtast venligst emailadresse: ");
+            Console.Write("Indtast venligst emailadresse: ");
             string emailadress1 = Console.ReadLine();
-            Console.WriteLine("Indtast venligst telefonnummer: ");
+            Console.Write("Indtast venligst telefonnummer: ");
             string phonenumber1 = Console.ReadLine();
+            
+            Customer customer = new Customer(name1, lastname, emailadress1, phonenumber1);
+            
 
-
-            Customer Customer = new Customer(name1, lastname, emailadress1, phonenumber1);
-            return Customer;
+            customerRepository.AddCustomer(customer);
+            
+            return customer;
         }
         public static Request AddRequest()
         {

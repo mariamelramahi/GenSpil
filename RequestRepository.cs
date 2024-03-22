@@ -16,6 +16,7 @@ namespace Genspil
         public void Write()
         {
             string content = "";
+            string content2 = "";
             foreach (var item in Requests)
             {
                 content += item.Serialize() + "\n";
@@ -26,7 +27,7 @@ namespace Genspil
             }
             else
             {
-                Console.WriteLine($"The file {path} already exists");
+                File.AppendAllText(path, content2);
             }
         }
         public void AddRequest(Request request)

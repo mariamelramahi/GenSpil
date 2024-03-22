@@ -34,6 +34,10 @@ namespace Genspil
             return FirstName + ";" + LastName + ";" + EmailAddress + ";" + PhoneNumber;
         }
         //lave et loop over mit customer liste og skrive linjer
+        public override string ToString()
+        {
+            return Serialize();
+        }
 
     }
     
