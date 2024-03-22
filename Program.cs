@@ -1,11 +1,21 @@
-﻿
+﻿using System.Collections.Generic; 
 namespace Genspil
 {
     public class Program
     {
+        public static RequestRepository requestRepository = new RequestRepository();
+        public static CustomerRepository customerRepository = new CustomerRepository();
+
         static void Main(string[] args)
         {
-            //Menu menu = new Menu(new MenuItem[] { new MenuItem("Gør dit"), new MenuItem("Gør dat"), new MenuItem("Gør noget"), new MenuItem("Få svaret på livet, universet og alting") });
+            AddCustomer();
+            customerRepository.Write();
+            AddRequest();
+            requestRepository.Write();
+            Console.WriteLine("exit");
+            Console.ReadKey();
+            Customer customers = new Customer("Marlen", "Noe", "Noe mer", "noe mer");
+            
             bool keeprunning = true;
             do
             {
@@ -37,52 +47,55 @@ namespace Genspil
             }
             while (keeprunning);
             Console.WriteLine("Farvel");
-
-
-
-
         }
 
-        public Customer AddCustomer() 
+        public static Customer AddCustomer() 
         {
-            Console.Write("Indtast venligst navn: ");
+            Console.Write("Indtast venligst fornavn: ");
             string name1 = Console.ReadLine();
+            Console.WriteLine("Indtast venligst efternavn: ");
+            string lastname = Console.ReadLine();
             Console.WriteLine("Indtast venligst emailadresse: ");
             string emailadress1 = Console.ReadLine();
             Console.WriteLine("Indtast venligst telefonnummer: ");
             string phonenumber1 = Console.ReadLine();
 
 
-            Customer Customer = new Customer(name1, emailadress1, phonenumber1);
+            Customer Customer = new Customer(name1, lastname, emailadress1, phonenumber1);
             return Customer;
         }
-        public Request AddRequest()
+        public static Request AddRequest()
         {
             Console.WriteLine("Vil du søge efter eksisterende kunde (1), eller oprette en ny kunde? (2): ");
             int answer = int.Parse(Console.ReadLine());
+            Customer customer; //findes en variabel af typen Customer som vi kalder for customer. Den har foreløpig ingen værdi, så den har værdien null implicit. 
             if (answer == 1)
             {
-
+               customer = AddCustomer();
             }
             else if (answer == 2)
             {
-                AddCustomer();
+                customer = AddCustomer();
             }
             else
             {
                 Console.WriteLine("Ugyldigt input, prøv igen: ");
-                AddRequest();
+                return AddRequest();//rekursivt kald 
             }
             Console.WriteLine("Indtast navn på spil: ");
             string gamename = Console.ReadLine();
-
-
             Request Request = new Request(gamename, customer);
-            return Request; 
-        }
-        public Customer FindCustomer(string name)
-        {
 
+            requestRepository.AddRequest(Request);
+          
+            return Request;      
+        }
+        public Customer FindCustomer()
+        {
+            Console.WriteLine("Indtast kundenavn du vil søge efter: ");
+            string customer = Console.ReadLine(); 
+
+            return new Customer(customer, customer, customer, customer);//skal erstattes med rigitg søgekald fra kundeliste
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿
 
+using System.Net.Mail;
+
 namespace Genspil
 {
     public class Request
@@ -7,12 +9,15 @@ namespace Genspil
         public string GameName { get; set; }
         public Customer Customer {  get; set; }
 
-        public Request(string Name, Customer Customer)
+        public Request(string name, Customer customer)
         {
-            this.GameName = Name;
-            this.Customer = Customer; 
+            this.GameName = name;
+            this.Customer = customer; 
             
         }
-
+        public string Serialize()
+        {
+            return GameName + ";" + Customer.FirstName;
+        }
     }
 }
