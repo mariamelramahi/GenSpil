@@ -8,6 +8,8 @@ namespace Genspil
 
         static void Main(string[] args)
         {
+            customerRepository.CustomerToArray(); 
+            customerRepository.FindCustomer();
             AddCustomer();
             customerRepository.Write();
             AddRequest();
@@ -93,12 +95,13 @@ namespace Genspil
           
             return Request;      
         }
-        public Customer FindCustomer()
-        {
-            Console.WriteLine("Indtast kundenavn du vil søge efter: ");
-            string customer = Console.ReadLine(); 
+        ////public Customer FindCustomer()
+        ////{
+        ////    Console.WriteLine("Indtast kundenavn du vil søge efter: ");
+        ////    string customer = Console.ReadLine(); 
 
-            return new Customer(customer, customer, customer, customer);//skal erstattes med rigitg søgekald fra kundeliste
-        }
+
+        ////    return new Customer(customer, customer, customer, customer);//skal erstattes med rigitg søgekald fra kundeliste
+        ////}
     }
 }

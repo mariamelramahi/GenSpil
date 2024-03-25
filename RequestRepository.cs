@@ -34,6 +34,16 @@ namespace Genspil
         {
             Requests.Add(request);
         }
+        public void RequestToArray()
+        {
+            string[] requestArray = File.ReadLines(@"C:\temp\requests.txt").ToArray();
+
+            foreach (var request in requestArray)
+            {
+                Console.WriteLine("Dette er en forespørgsel: " + request);
+
+            }
+        }
     }
 
 }

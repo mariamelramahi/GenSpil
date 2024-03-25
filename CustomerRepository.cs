@@ -36,5 +36,35 @@ namespace Genspil
         {
             Customers.Add(customer);
         }
+        public void CustomerToArray()  
+        {
+            string[] customerArray = File.ReadLines(@"C:\temp\customers1.txt").ToArray();
+
+            foreach (var customer in customerArray) 
+            { 
+            Console.WriteLine("Dette er en kunde: " + customer);
+                
+            }
+        }
+        public Customer FindCustomer()
+        {
+            Console.WriteLine("Tryk hvilken som helst tast efterfulgt af enter for at få kunder frem: ");
+            string customer = Console.ReadLine();
+            int i = 0;
+            
+            foreach (string line in File.ReadAllLines(path))
+            {
+                string[] parts = line.Split(';');
+                foreach (string part in parts)
+                {
+                    Console.WriteLine("{0}:{1}", i, part);
+                }
+                i++; // For demonstration.
+            }
+
+            //if(customer== parts)
+            //{Console.WriteLine(customer + " findes i systemet")
+            return new Customer(customer, customer, customer, customer);//skal erstattes med rigitg søgekald fra kundeliste
+        }
     }
 }
