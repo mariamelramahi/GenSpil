@@ -14,6 +14,7 @@ namespace Genspil
             bool keeprunning = true;
             do
             {
+                Console.Write("Hi");
 
                 Menu menu = new Menu(" Velkommen til Genspils lagerbeholdning, du har nu følgende valgmulihgeder: ");
                 menu.AddMenuItem("Søge efter et spil på lageret", "1");
