@@ -16,7 +16,7 @@ namespace Genspil
             requestRepository.Write();
             Console.WriteLine("exit");
             Console.ReadKey();
-            Customer customers = new Customer("Marlen", "Noe", "Noe mer", "noe mer");
+
             
             bool keeprunning = true;
             do
