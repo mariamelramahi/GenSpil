@@ -15,22 +15,21 @@ namespace Genspil
         public void Write()
         {
             string content = "";
-            string content2 = "";
-            foreach (var item in Customers)
+            
+            foreach (Customer item in Customers)
             {
                 content += item.Serialize() + "\n";
-                content2 += item.Serialize() + "\n";
-            }
-            if (!File.Exists(path))
-            {
-                File.WriteAllText(path, content);//laver en ny fil og skrive listeelementerne op, alt på en ny linje
-            }
-            else
-            {            
-                File.AppendAllText(path, content2);
-            }
                 
-            
+            }
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+
+            File.WriteAllText(path, content);//laver en ny fil og skrive listeelementerne op, alt på en ny linje
+
+
+
         }
         public void AddCustomer(Customer customer)
         {
@@ -41,7 +40,10 @@ namespace Genspil
             string[] customerArray = File.ReadLines(@"C:\temp\customers1.txt").ToArray();
 
             foreach (var customer in customerArray) 
-            { 
+            {
+              string[] c =  customer.Split(';');
+                Customer c2 = new Customer(c[0], c[1], c[2], c[3]);
+                Customers.Add(c2);
             Console.WriteLine("Dette er en kunde: " + customer);
                 
             }
@@ -65,6 +67,24 @@ namespace Genspil
             //if(customer== parts)
             //{Console.WriteLine(customer + " findes i systemet")
             return new Customer(customer, customer, customer, customer);//skal erstattes med rigitg søgekald fra kundeliste
+        }
+        public Customer AddCustomer()
+        {
+            Console.Write("Indtast venligst fornavn: ");
+            string name1 = Console.ReadLine();
+            Console.Write("Indtast venligst efternavn: ");
+            string lastname = Console.ReadLine();
+            Console.Write("Indtast venligst emailadresse: ");
+            string emailadress1 = Console.ReadLine();
+            Console.Write("Indtast venligst telefonnummer: ");
+            string phonenumber1 = Console.ReadLine();
+
+            Customer customer = new Customer(name1, lastname, emailadress1, phonenumber1);
+
+
+            AddCustomer(customer);
+
+            return customer;
         }
     }
 }

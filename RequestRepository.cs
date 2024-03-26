@@ -16,7 +16,7 @@ namespace Genspil
         public void Write()
         {
             string content = "";
-            string content2 = "";
+
             foreach (var item in Requests)
             {
                 content += item.Serialize() + "\n";
@@ -27,7 +27,7 @@ namespace Genspil
             }
             else
             {
-                File.AppendAllText(path, content2);
+                File.AppendAllText(path, content);
             }
         }
         public void AddRequest(Request request)
@@ -43,6 +43,32 @@ namespace Genspil
                 Console.WriteLine("Dette er en forespørgsel: " + request);
 
             }
+        }
+        public Request AddRequest(CustomerRepository cr)
+        {
+            Console.WriteLine("Vil du søge efter eksisterende kunde (1), eller oprette en ny kunde? (2): ");
+            int answer = int.Parse(Console.ReadLine());
+            Customer customer; //findes en variabel af typen Customer som vi kalder for customer. Den har foreløpig ingen værdi, så den har værdien null implicit. 
+            if (answer == 1)
+            {
+                customer = cr.AddCustomer();
+            }
+            else if (answer == 2)
+            {
+                customer = cr.AddCustomer();
+            }
+            else
+            {
+                Console.WriteLine("Ugyldigt input, prøv igen: ");
+                return AddRequest(cr);//rekursivt kald 
+            }
+            Console.WriteLine("Indtast navn på spil: ");
+            string gamename = Console.ReadLine();
+            Request Request = new Request(gamename, customer);
+
+            AddRequest(Request);
+
+            return Request;
         }
     }
 
