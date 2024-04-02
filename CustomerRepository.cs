@@ -9,43 +9,53 @@ namespace Genspil
 {
     public class CustomerRepository
     {
-        private readonly string path = @"C:\temp\customers1.txt";//betyder at ingen andre kan sætte en anden værdi på contenstringen
+        public string DataFileName { get; }
         public List<Customer> Customers = new List<Customer>();
 
-        public void Write()
+        public CustomerRepository()//constructor instantiating non-null property
         {
-            string content = "";
-            
-            foreach (Customer item in Customers)
-            {
-                content += item.Serialize() + "\n";
-                
-            }
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-
-            File.WriteAllText(path, content);//laver en ny fil og skrive listeelementerne op, alt på en ny linje
-
-
-
+            DataFileName = "Customers.txt";
+            LoadCustomers();//læser de kunder der allerde findes i filen ind
         }
-        public void AddCustomer(Customer customer)
+        public void SaveCustomers()
         {
-            Customers.Add(customer);
-        }
-        public void CustomerToArray()  
-        {
-            string[] customerArray = File.ReadLines(@"C:\temp\customers1.txt").ToArray();
-
-            foreach (var customer in customerArray) 
+            string filename = DataFileName;
+            try
             {
-              string[] c =  customer.Split(';');
-                Customer c2 = new Customer(c[0], c[1], c[2], c[3]);
-                Customers.Add(c2);
-            Console.WriteLine("Dette er en kunde: " + customer);
-                
+                using (StreamWriter writer = new StreamWriter(filename))
+                {
+                    foreach (var customer in Customers)
+                    {
+                        writer.WriteLine(customer.Serialize());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+            }           
+        }
+        public void LoadCustomers()
+        {
+            string filename = DataFileName;
+            try
+            {
+                using(StreamReader reader = new StreamReader(filename))
+                {
+                    string line;
+                 
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] c = line.Split(';');
+                        Customer c2 = new Customer(c[0], c[1], c[2], c[3]);
+                        Customers.Add(c2);                       
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
         public Customer FindCustomer()
@@ -53,8 +63,8 @@ namespace Genspil
             Console.WriteLine("Tryk hvilken som helst tast efterfulgt af enter for at få kunder frem: ");
             string customer = Console.ReadLine();
             int i = 0;
-            
-            foreach (string line in File.ReadAllLines(path))
+            string filename = DataFileName;
+            foreach (string line in File.ReadAllLines(filename))
             {
                 string[] parts = line.Split(';');
                 foreach (string part in parts)
@@ -68,23 +78,34 @@ namespace Genspil
             //{Console.WriteLine(customer + " findes i systemet")
             return new Customer(customer, customer, customer, customer);//skal erstattes med rigitg søgekald fra kundeliste
         }
-        public Customer AddCustomer()
+        public Customer AddCustomer()//en public metode som tilfæjer en Customer fra konsolinput til repository og returnerer den
         {
             Console.Write("Indtast venligst fornavn: ");
-            string name1 = Console.ReadLine();
+            string firstname = Console.ReadLine();
             Console.Write("Indtast venligst efternavn: ");
             string lastname = Console.ReadLine();
             Console.Write("Indtast venligst emailadresse: ");
-            string emailadress1 = Console.ReadLine();
+            string emailadress = Console.ReadLine();
             Console.Write("Indtast venligst telefonnummer: ");
-            string phonenumber1 = Console.ReadLine();
+            string phonenumber = Console.ReadLine();
 
-            Customer customer = new Customer(name1, lastname, emailadress1, phonenumber1);
+            Customer customer = new Customer(firstname, lastname, emailadress, phonenumber);
+            
+            Customers.Add(customer);//tilføjer kunden til repositoriets liste
 
+            return customer;//returnerer kunden så vi kan bruge den til vores request
+        }
 
-            AddCustomer(customer);
-
-            return customer;
+        public Customer? FindByName(string firstname, string lastname)
+        {
+            foreach (Customer customer in Customers)
+            {
+                if (firstname == customer.FirstName && lastname == customer.LastName)
+                {
+                    return customer;
+                }
+            }
+            return null;
         }
     }
 }

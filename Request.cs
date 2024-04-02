@@ -17,7 +17,7 @@ namespace Genspil
         }
         public string Serialize()
         {
-            return GameName + ";" + Customer.FirstName;
+            return GameName + ";" + Customer.FirstName + ";" + Customer.LastName;
         }
     }
 }

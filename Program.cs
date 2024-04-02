@@ -3,13 +3,14 @@ namespace Genspil
 {
     public class Program
     {
-        public static RequestRepository requestRepository = new RequestRepository(); //starter med at kalde dem for at lave repositories som kan bruges i programmet
         public static CustomerRepository customerRepository = new CustomerRepository();
+        public static RequestRepository requestRepository = new RequestRepository(customerRepository); //starter med at kalde dem for at lave repositories som kan bruges i programmet
+       
 
         static void Main(string[] args)
         {
 
-            customerRepository.CustomerToArray(); //loader filen med kunder, således at vi har de eksisterende kunder i repositoriet
+            customerRepository.LoadCustomers(); //loader filen med kunder, således at vi har de eksisterende kunder i repositoriet
                       
             bool keeprunning = true;
             do
@@ -41,6 +42,8 @@ namespace Genspil
                 }
             }
             while (keeprunning);
+            requestRepository.SaveRequests();
+            customerRepository.SaveCustomers();
             Console.WriteLine("Farvel");
         }
 
