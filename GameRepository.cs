@@ -1,14 +1,18 @@
 ﻿using System;
 using Genspil;
 
-public class GameRepository
- {    
-    public string DataFileName { get; }
 
-    public GameRepository(string dataFileName)
+namespace Gamelist
+{
+    public class GameRepository
     {
-     DataFileName = dataFileName;
-    }
+        public string DataFileName { get; }
+
+        public GameRepository(string dataFileName)
+        {
+            DataFileName = dataFileName;
+        }
+
 
         public void SaveGame(GameInfo gameInfo)
         {
@@ -44,68 +48,68 @@ public class GameRepository
                         string genre = parts[3];
                         int numberOfPlayers = int.Parse(parts[4]);
                         GameCondition condition = enum.Parse(parts[5]);
-                        GameStatus status = enum.Parse(parts[5]);
-
-                        return new GameInfo(title, edition, basePrice, genre, numberOfPlayers, GameStatus);
-                    }
-                }
+                        GameStatus status = enum.Parse(parts[6]);
+    }
+}
             }
             catch (Exception exp)
             {
                 Console.WriteLine(exp.Message);
-
+                
             }
-            return null;
+             return null; 
         }
-        public void SaveGameInfo(GameInfo[] games)
+
+        
+public void SaveGameInfo(GameInfo[] games)
+
+    try
+{
+    string filename = DataFileName;
+
+    using (StreamWriter writer = new StreamWriter(filename))
+    {
+        foreach (var game in games)
         {
-            try
-            {
-                string filename = DataFileName;
-
-                using (StreamWriter writer = new StreamWriter(filename))
-                {
-                    foreach (var game in games)
-                    {
-                        writer.WriteLine(game.MakeTitle());
-                    }
-                }
-            }
-            catch (Exception exp)
-            {
-                Console.WriteLine(exp.Message);
-            }
-
+            writer.WriteLine(game.MakeTitle());
         }
-        public GameInfo[] LoadGameInfo()
+    }
+}
+catch (Exception exp)
+{
+    Console.WriteLine(exp.Message);
+}
+
+}
+public GameInfo[] LoadGameInfo()
+{
+    try
+    {
+        string filename = DataFileName;
+
+        if (!File.Exists(filename))
         {
-            try
+            throw new FileNotFoundException("Data file does not exist.");
+        }
+
+        List<Gameinfo> games = new List<GameInfo>();
+
+        using (StreamReader reader = new StreamReader(filename))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
             {
-                string filename = DataFileName;
+                string[] parts = line.Split(';');
 
-                if (!File.Exists(filename))
-                {
-                    throw new FileNotFoundException("Data file does not exist.");
-                }
+                string title = parts[0];
+                string edition = parts[1];
+                decimal basePrice = decimal.Parse(parts[2]);
+                string genre = parts[3];
+                int numberOfPlayers = int.Parse(parts[4]);
+                GameCondition condition = enum.Parse(parts[5]);
+GameStatus status = enum.Parse(parts[5]);
 
-                List<Gameinfo> games = new List<GameInfo>();
-
-                using (StreamReader reader = new StreamReader(filename))
-                {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        string[] parts = line.Split(';');
-
-                        string title = parts[0];
-                        string edition = parts[1];
-                        decimal basePrice = decimal.Parse(parts[2]);
-                        string genre = parts[3];
-                        int numberOfPlayers = int.Parse(parts[4]);
-                        GameCondition condition = enum.Parse(parts[5]);
-                        GameStatus status = enum.Parse(parts[5]);
-
-                        games.Add(new GameInfo((title, edition, basePrice, genre, numberOfPlayers, GameStatus)));
+games.Add(new GameInfo((title, edition, basePrice, genre, numberOfPlayers, GameStatus)));
                     }
                 }
 
@@ -122,4 +126,4 @@ public class GameRepository
 
 
         }
-}
+}   }
