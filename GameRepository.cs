@@ -1,129 +1,99 @@
 ﻿using System;
-using static Genspil.GameStorage;
+using System.IO;
 
-
-namespace Gamelist
+namespace Genspil
 {
-    public class GameRepository
+    public class DataHandler
     {
+        // File name to store game data
         public string DataFileName { get; }
 
-        public GameRepository(string dataFileName)
+        // Constructor to intialize DataFileName
+        public DataHandler(string dataFileName)
         {
             DataFileName = dataFileName;
         }
 
-
-        public void SaveGame(GameStorage.GameInfo gameInfo)
+        // Method to save games to a file 
+        public void SaveGames(GameStorage.GameInfo[] games)
         {
             string filename = DataFileName;
 
             try
             {
+                // Open a StreamWriter to write to the file
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
-                    writer.Write(gameInfo.MakeTitle());
+                    // Iterate trough each game and write its properties to a line in the file
+                    foreach (var game in games )
+                    {
+                        // Format of the properties
+                        string line = $"{game.Title};{game.Edition};{game.BasePrice};{game.Gemre};{game.NumberOfPlayers};{game.Condition};{game.Status}" ;
+                        // write the formatted line to the file 
+                        writer.WriteLine(line);
+                    }
                 }
             }
+
             catch (Exception exp)
             {
-                Console.Write(exp.ToString());
+                // if an exception occurs during writing, print the error message 
+                Console.WriteLine($"Error while saving games: {exp.Message}");
             }
         }
-        public GameInfo? LoadGameInfo()
+
+        // Method to load games from a file 
+        public GameStorage.GameInfo[] LoadGames()
         {
             string filename = DataFileName;
             try
             {
-                using (StreamReader reader = new StreamReader(DataFileName))
+                // Check if the file exists 
+                if (!filename.Exists(filename))
                 {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        string[] parts = line.Split(';');
-
-                        string title = parts[0];
-                        string edition = parts[1];
-                        decimal basePrice = decimal.Parse(parts[2]);
-                        string genre = parts[3];
-                        int numberOfPlayers = int.Parse(parts[4]);
-                        GameCondition condition = enum.Parse(parts[5]);
-                        GameStatus status = enum.Parse(parts[6]);
-    }
-}
-            }
-            catch (Exception exp)
-            {
-                Console.WriteLine(exp.Message);
-                
-            }
-             return null; 
-        }
-
-        
-public void SaveGameInfo(GameInfo[] games)
-
-    try
-{
-    string filename = DataFileName;
-
-    using (StreamWriter writer = new StreamWriter(filename))
-    {
-        foreach (var game in games)
-        {
-            writer.WriteLine(game.MakeTitle());
-        }
-    }
-}
-catch (Exception exp)
-{
-    Console.WriteLine(exp.Message);
-}
-
-}
-public GameInfo[] LoadGameInfo()
-{
-    try
-    {
-        string filename = DataFileName;
-
-        if (!File.Exists(filename))
-        {
-            throw new FileNotFoundException("Data file does not exist.");
-        }
-
-        List<Gameinfo> games = new List<GameInfo>();
-
-        using (StreamReader reader = new StreamReader(filename))
-        {
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                string[] parts = line.Split(';');
-
-                string title = parts[0];
-                string edition = parts[1];
-                decimal basePrice = decimal.Parse(parts[2]);
-                string genre = parts[3];
-                int numberOfPlayers = int.Parse(parts[4]);
-                GameCondition condition = enum.Parse(parts[5]);
-GameStatus status = enum.Parse(parts[5]);
-
-games.Add(new GameInfo((title, edition, basePrice, genre, numberOfPlayers, GameStatus)));
-                    }
+                    throw new FileNotFoundException("Data File does not exist.");
                 }
 
+                var games = new List<GameStorage.GameInfo>();
+
+                // Open a streamreader to read from the file
+                using (StreamReader reader = new StreamReader (filename))
+                {
+                    string line;
+                    // read each line from the file
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        // spilts the line by semicolons to extract game properties
+                        string[] parts = line.Split(';');
+                        // create a new gameinfo object using the extracted properties
+                        var game = new GameStorage.GameInfo(
+                            parts[0],   // Title
+                            parts[1],   // Edition
+                            decimal.Parse(parts[2]),  // BasePrice 
+                            parts[3],   // Genre
+                            int.Parse(parts[4],   // NumberOfPlayers
+                            (GameStorage.GameCondition)Enum.Parse(typeof(GameStorage.GameCondition), parts[5]),  //  GameConditon
+                            (GameStorage.GameStatus)Enum.Parse(typeof(GameStorage.GameStatus), parts[6])  // GameStatus
+                        );
+
+                        // Add the game to the list of games 
+                        games.Add(game);
+                    }
+                }
+                // convert to the list of games to an array and return
                 return games.ToArray();
 
             }
-
+            
             catch (Exception exp)
             {
-                Console.WriteLine(exp.Message);
+                // if an exception occurs during loading, print the error message 
+                Console.WriteLine($"Error while loading games: {exp.Message}");
             }
 
-            return null;
-
-
+            return null; // return null if an exception occurs 
         }
-}   }
+
+
+    }
+}
