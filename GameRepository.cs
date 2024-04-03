@@ -1,5 +1,5 @@
 ﻿using System;
-using Genspil;
+using static Genspil.GameStorage;
 
 
 namespace Gamelist
@@ -14,7 +14,7 @@ namespace Gamelist
         }
 
 
-        public void SaveGame(GameInfo gameInfo)
+        public void SaveGame(GameStorage.GameInfo gameInfo)
         {
             string filename = DataFileName;
 
