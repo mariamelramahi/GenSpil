@@ -2,7 +2,7 @@
 
 namespace Genspil
 {
-    internal class GameInfo
+    public class GameInfo
     {
         // Define enum for the condition of the game
         public enum GameCondition
