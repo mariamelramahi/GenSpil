@@ -2,7 +2,7 @@
 
 namespace Genspil
 {
-    internal class Game
+    internal class GameInfo
     {
         // Define enum for the condition of the game
         public enum GameCondition
@@ -23,7 +23,7 @@ namespace Genspil
         }
 
         // A class representing a game
-        public class Game
+        public class GameInfo
         {
             // Properties of the game
             public string Title { get; set; } // Title of the game
@@ -35,7 +35,7 @@ namespace Genspil
             public GameStatus Status { get; set; }  // Status of availiblty in storage 
 
             //Constructor 
-            public Game(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, GameCondition condition, GameStatus status)
+            public GameInfo(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, GameCondition condition, GameStatus status)
             {
                 Title = title;
                 Edition = edition;
@@ -69,7 +69,21 @@ namespace Genspil
 
         }
 
+        public class GameData
+        {
+            public GameInfo[] Games { get; set; } // array to store game information
+
+            public GameData()
+            {
+                Games = new GameInfo[]
+                {
+                new GameInfo("Chess", "Standard Edition", 80m, "Board", 2, GameCondition.New, GameStatus.Available, 3)
+                new GameInfo("Monopoly", "Limited Edition", 90m, "Board", 4, GameCondition.Good, GameStatus.OnItsWay)
+                new GameInfo("Monopoly", "German Edition", 70m, "Board", 4, GameCondition.Ok, GameStatus.Reserved, 2)
+                new GameInfo("Bad People", "Standard Ediiton", 40m, "Card", 3-10, GameCondition.Good, GameStatus.Available, 3)
+                }
+            }
+        }
+
     }
-    
-}
 
