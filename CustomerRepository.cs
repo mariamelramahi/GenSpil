@@ -15,7 +15,7 @@ namespace Genspil
         public CustomerRepository()//constructor instantiating non-null property
         {
             DataFileName = "Customers.txt";
-            LoadCustomers();//læser de kunder der allerde findes i filen ind
+            LoadCustomers();//læser de kunder der allerede findes i filen ind
         }
         public void SaveCustomers()
         {
