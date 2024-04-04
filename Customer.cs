@@ -110,7 +110,14 @@ namespace Genspil
         {
             return Serialize();
         }
-
+        public string PrintToUser()
+        {
+            return firstName + " " + lastName + " \t\t " + emailAddress + " \t\t " + phoneNumber;
+        }
+        public static void PrintToUserHeader()
+        {
+            Console.WriteLine("Kundens navn\t\tEmailadresse\t\t\t Telefonnummer\n");
+        }
     }
     
 }

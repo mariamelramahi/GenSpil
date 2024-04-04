@@ -107,5 +107,13 @@ namespace Genspil
             }
             return null;
         }
+        public void ShowCustomers()
+        {
+            Customer.PrintToUserHeader();
+            foreach (Customer customer in Customers)
+            {
+                Console.WriteLine(customer.PrintToUser());
+            }
+        }
     }
 }

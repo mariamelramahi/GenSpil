@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic; 
+﻿using System.Collections.Generic;
+
+
 namespace Genspil
 {
     public class Program
@@ -8,30 +10,55 @@ namespace Genspil
        
 
         static void Main(string[] args)
-        {
-
-            customerRepository.LoadCustomers(); //loader filen med kunder, således at vi har de eksisterende kunder i repositoriet
-                      
+        {         
             bool keeprunning = true;
             do
             {
-
-                Menu menu = new Menu(" Velkommen til Genspils lagerbeholdning, du har nu følgende valgmulihgeder: ");
-                menu.AddMenuItem("Søge efter et spil på lageret", "1");
-                menu.AddMenuItem("Tilføje nyt spil til lagerbeholdningen", "2");
-                menu.AddMenuItem("Lave vareoptælling", "3");
-                menu.AddMenuItem("Opret ny kunde", "42");
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Menu menu = new Menu("Velkommen til Genspils lagerbeholdning, du har nu følgende valgmulihgeder: ");
+                menu.AddMenuItem("Søge efter et spil på lageret", " søge efter spil på lageret\n");
+                menu.AddMenuItem("Tilføje nyt spil til lagerbeholdningen", " tilføje et nyt spil til lagerbeholdninen\n");
+                menu.AddMenuItem("Lave vareoptælling", " lave vareoptælling\n");
+                menu.AddMenuItem("Opret ny kunde", " oprette en ny kunde\n");
+                menu.AddMenuItem("Opret ny forespørgsel på et spil", " opprette en ny forespørgsel på et spil\n");
+                menu.AddMenuItem("Se hvilke forespørgsler på spil der ligger i systemet: ", " se hvilke forespørgsler på spil der ligger i systemet\n");
+                menu.AddMenuItem("Se eksisterende kunder", " se eksisterende kunder\n");
                 menu.Show();
                 Console.WriteLine("  \nVælg noget fra menuen: ");
                 int selection = menu.SelectMenuItem();
-                Console.WriteLine("\n  Du har valgt at " + selection);
-
-
-
+                Console.Write("\nDu har valgt at ");
                 string answer = menu.GetAnswer(selection);
-
                 Console.WriteLine(answer);
-                Console.WriteLine("\n  Vil du prøve igen? Tryk på hvilket som helst tal efterfulgt af enter. Tryk 0 for at afslutte");
+
+                switch (selection)
+                { 
+                    case 1: 
+                    FindGame.Search(answer); 
+                        break;
+                    case 2:
+                        //Tilføje nyt spil til lagerbeholdningen 
+                        break; 
+                    case 3:
+                        //lave vareoptælling
+                        break;
+                    case 4:
+                        customerRepository.AddCustomer();//opretter ny kunde
+                        break;
+                    case 5:
+                        requestRepository.AddRequests();//opretter ny forespørgsel
+                        break;
+                    case 6:
+                        
+                        requestRepository.ShowRequests();//viser hvilke requests som allerede er opprettet
+                        break;
+                    case 7:
+                        customerRepository.ShowCustomers();
+                        break; 
+                }
+
+                
+                Console.WriteLine("\nVil du fortsætte? Tryk på hvilket som helst tal efterfulgt af enter. Tryk 0 efterflygt af enter for at afslutte: ");
                 int answer2 = int.Parse(Console.ReadLine());
 
                 Console.Clear();
