@@ -57,9 +57,9 @@ namespace Genspil
                     case GameCondition.Used:  // if used take away 70% of the orignal price
                         return BasePrice * 0.7m;
                     case GameCondition.Good:
-                        return BasePrice * 0.9m
+                        return BasePrice * 0.9m;
                     case GameCondition.Ok:
-                        return BasePrice * 0.6m
+                        return BasePrice * 0.6m;
                     case GameCondition.Damaged:
                         return BasePrice * 0.4m;
                     default:

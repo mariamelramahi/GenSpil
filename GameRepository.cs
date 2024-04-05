@@ -71,7 +71,7 @@ namespace Genspil
                             parts[1],   // Edition
                             decimal.Parse(parts[2]),  // BasePrice 
                             parts[3],   // Genre
-                            int.Parse(parts[4],   // NumberOfPlayers
+                            int.Parse(parts[4]),   // NumberOfPlayers
                             (GameStorage.GameCondition)Enum.Parse(typeof(GameStorage.GameCondition), parts[5]),  //  GameConditon
                             (GameStorage.GameStatus)Enum.Parse(typeof(GameStorage.GameStatus), parts[6])  // GameStatus
                         );
