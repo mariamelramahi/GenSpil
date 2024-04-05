@@ -25,10 +25,10 @@ namespace Genspil
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
                     // Iterate trough each game and write its properties to a line in the file
-                    foreach (var game in games)
+                    foreach (var game in games )
                     {
                         // Format of the properties
-                        string line = $"{game.Title};{game.Edition};{game.BasePrice};{game.Gemre};{game.NumberOfPlayers};{game.Condition};{game.Status}";
+                        string line = $"{game.Title};{game.Edition};{game.BasePrice};{game.Gemre};{game.NumberOfPlayers};{game.Condition};{game.Status}" ;
                         // write the formatted line to the file 
                         writer.WriteLine(line);
                     }
@@ -57,7 +57,7 @@ namespace Genspil
                 var games = new List<GameStorage.GameInfo>();
 
                 // Open a streamreader to read from the file
-                using (StreamReader reader = new StreamReader(filename))
+                using (StreamReader reader = new StreamReader (filename))
                 {
                     string line;
                     // read each line from the file
@@ -71,7 +71,7 @@ namespace Genspil
                             parts[1],   // Edition
                             decimal.Parse(parts[2]),  // BasePrice 
                             parts[3],   // Genre
-                            int.Parse(parts[4]),   // NumberOfPlayers
+                            int.Parse(parts[4],   // NumberOfPlayers
                             (GameStorage.GameCondition)Enum.Parse(typeof(GameStorage.GameCondition), parts[5]),  //  GameConditon
                             (GameStorage.GameStatus)Enum.Parse(typeof(GameStorage.GameStatus), parts[6])  // GameStatus
                         );
@@ -84,7 +84,7 @@ namespace Genspil
                 return games.ToArray();
 
             }
-
+            
             catch (Exception exp)
             {
                 // if an exception occurs during loading, print the error message 
