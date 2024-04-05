@@ -84,9 +84,9 @@ namespace Genspil
                 new GameInfo("Monopoly", "Limited Edition", 90m, "Board", 4, GameCondition.Good, GameStatus.OnItsWay, 0),
                 new GameInfo("Monopoly", "German Edition", 70m, "Board", 4, GameCondition.Ok, GameStatus.Reserved, 2),
                 new GameInfo("Bad People", "Standard Ediiton", 40m, "Card", 3 - 10, GameCondition.Good, GameStatus.Available, 3) };
-                }
             }
         }
-
     }
+
+}
 

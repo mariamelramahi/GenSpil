@@ -34,7 +34,7 @@ namespace Genspil
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error while saving requests: " + ex.Message);
             }
         }
         
@@ -56,7 +56,7 @@ namespace Genspil
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error while loading requests: " + ex.Message);
             }
         }
         public Request AddRequests()

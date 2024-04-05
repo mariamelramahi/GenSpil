@@ -7,15 +7,13 @@ namespace Genspil
     {
         public static CustomerRepository customerRepository = new CustomerRepository();
         public static RequestRepository requestRepository = new RequestRepository(customerRepository); //starter med at kalde dem for at lave repositories som kan bruges i programmet
-       
+        public static GameRepository gameRepository = new GameRepository(); 
 
         static void Main(string[] args)
         {         
             bool keeprunning = true;
             do
             {
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.ForegroundColor = ConsoleColor.Black;
                 Menu menu = new Menu("Velkommen til Genspils lagerbeholdning, du har nu følgende valgmulihgeder: ");
                 menu.AddMenuItem("Søge efter et spil på lageret", " søge efter spil på lageret\n");
                 menu.AddMenuItem("Tilføje nyt spil til lagerbeholdningen", " tilføje et nyt spil til lagerbeholdninen\n");

@@ -90,16 +90,6 @@ namespace Genspil
             this.emailAddress = emailAddress;   
             this.phoneNumber = phoneNumber;
         }
-        //public void AddCustomerToList()
-        //{
-        // List <Customer> customers = new List <Customer> ();
-        //    customers.Add(new Customer("Soren", "Ravn", "something@gmail.com", "+4512345678"));
-
-        //    foreach (Customer customer in customers)
-        //    {
-        //        Console.WriteLine(customer.);
-        //    }
-        //}
        
         public string Serialize()
         {
