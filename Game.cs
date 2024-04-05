@@ -8,6 +8,7 @@ namespace Genspil
         public enum GameCondition
         {
             New,
+            Used,
             Good,
             Ok,
             Damaged
@@ -33,9 +34,10 @@ namespace Genspil
             public int NumberOfPlayers { get; set; }  // number of players 
             public GameCondition Condition { get; set; } // Condition of the game
             public GameStatus Status { get; set; }  // Status of availiblty in storage 
+            public int NumberOfGames { get; set; }
 
             //Constructor 
-            public GameInfo(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, GameCondition condition, GameStatus status)
+            public GameInfo(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, GameCondition condition, GameStatus status, int numberOfGames)
             {
                 Title = title;
                 Edition = edition;
@@ -44,6 +46,7 @@ namespace Genspil
                 NumberOfPlayers = numberOfPlayers;
                 Condition = condition;
                 Status = status;
+                NumberOfGames = numberOfGames;
             }
 
             // Calculating the price after condition
@@ -77,10 +80,10 @@ namespace Genspil
             {
                 Games = new GameInfo[]
                 {
-                new GameInfo("Chess", "Standard Edition", 80m, "Board", 2, GameCondition.New, GameStatus.Available, 3)
-                new GameInfo("Monopoly", "Limited Edition", 90m, "Board", 4, GameCondition.Good, GameStatus.OnItsWay)
-                new GameInfo("Monopoly", "German Edition", 70m, "Board", 4, GameCondition.Ok, GameStatus.Reserved, 2)
-                new GameInfo("Bad People", "Standard Ediiton", 40m, "Card", 3-10, GameCondition.Good, GameStatus.Available, 3)
+                new GameInfo("Chess", "Standard Edition", 80m, "Board", 2, GameCondition.New, GameStatus.Available, 3),
+                new GameInfo("Monopoly", "Limited Edition", 90m, "Board", 4, GameCondition.Good, GameStatus.OnItsWay, 0),
+                new GameInfo("Monopoly", "German Edition", 70m, "Board", 4, GameCondition.Ok, GameStatus.Reserved, 2),
+                new GameInfo("Bad People", "Standard Ediiton", 40m, "Card", 3 - 10, GameCondition.Good, GameStatus.Available, 3) };
                 }
             }
         }
