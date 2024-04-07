@@ -31,9 +31,13 @@ namespace Genspil
 
                 switch (selection)
                 { 
-                    case 1: 
-                    FindGame.Search(answer); 
-                        break;
+                    case 1:
+                        {
+                            Console.WriteLine("Hvilket spil vil du gerne søge efter? ");
+                            string gameSearch = Console.ReadLine();
+                            FindGame.Search(gameSearch, gameRepository.LoadGames());
+                            break;
+                        }
                     case 2:
                         //Tilføje nyt spil til lagerbeholdningen 
                         break; 
@@ -70,7 +74,7 @@ namespace Genspil
                     Console.Write("Indtast navn på spillet, du søger: ");
 
                     string searchName = Console.ReadLine();
-                    FindGame.Search(searchName);
+                    //FindGame.Search(searchName);
 
                     Console.Write("Søg igen (Nej: 1/Ja: 2): ");
 
@@ -89,7 +93,7 @@ namespace Genspil
                             {
                                 Console.Write("Indtast navn på spillet, du søger: ");
                                 searchName = Console.ReadLine();
-                                FindGame.Search(searchName);
+                               // FindGame.Search(searchName);
 
                                 Console.Write("Søg igen (Nej: 1/Ja: 2): ");
                             }

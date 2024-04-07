@@ -8,11 +8,11 @@ namespace Genspil
         // File name to store game data
         public string DataFileName { get; }
 
+
         // Constructor to intialize DataFileName
         public GameRepository()
         {
             DataFileName = "gameStorage.txt";
-            LoadGames();
         }
 
         // Method to save games to a file 
