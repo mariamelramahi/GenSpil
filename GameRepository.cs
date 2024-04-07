@@ -43,7 +43,7 @@ namespace Genspil
         }
 
         // Method to load games from a file 
-        public GameStorage.GameInfo[] LoadGames()
+        private GameStorage.GameInfo[] LoadGames()
         {
             string filename = DataFileName;
             try
@@ -57,7 +57,7 @@ namespace Genspil
                 var games = new List<GameStorage.GameInfo>();
 
                 // Open a streamreader to read from the file
-                using (StreamReader reader = new StreamReader (filename))
+                using (StreamReader reader = new StreamReader(filename))
                 {
                     string line;
                     // read each line from the file
@@ -85,7 +85,7 @@ namespace Genspil
                 return games.ToArray();
 
             }
-            
+
             catch (Exception exp)
             {
                 // if an exception occurs during loading, print the error message 
@@ -94,6 +94,7 @@ namespace Genspil
 
             return null; // return null if an exception occurs 
         }
+
 
 
     }
