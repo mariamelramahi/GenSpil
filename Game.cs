@@ -1,5 +1,7 @@
 ﻿
 
+using Genspil;
+
 namespace Genspil
 {
     public class GameStorage
@@ -18,7 +20,7 @@ namespace Genspil
         {
             Available,
             Reserved,
-            OnItsWay,
+            OnItsWay,s
             WaitList
         }
 
@@ -31,17 +33,19 @@ namespace Genspil
             public decimal BasePrice { get; set; }  // The original price of the game
             public string Genre { get; set; }  // Genre of the game
             public int NumberOfPlayers { get; set; }  // number of players 
+            public int NumberOfGames { get; set; } // number of games
             public GameCondition Condition { get; set; } // Condition of the game
             public GameStatus Status { get; set; }  // Status of availiblty in storage 
 
             //Constructor 
-            public GameInfo(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, GameCondition condition, GameStatus status)
+            public GameInfo(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int numberOfGames, GameCondition condition, GameStatus status)
             {
                 Title = title;
                 Edition = edition;
                 BasePrice = basePrice;
                 Genre = genre;
                 NumberOfPlayers = numberOfPlayers;
+                NumberOfGames = numberOfGames;
                 Condition = condition;
                 Status = status;
             }
@@ -57,9 +61,9 @@ namespace Genspil
                     case GameCondition.Used:  // if used take away 70% of the orignal price
                         return BasePrice * 0.7m;
                     case GameCondition.Good:
-                        return BasePrice * 0.9m
+                        return BasePrice * 0.9m;
                     case GameCondition.Ok:
-                        return BasePrice * 0.6m
+                        return BasePrice * 0.6m;
                     case GameCondition.Damaged:
                         return BasePrice * 0.4m;
                     default:
@@ -69,6 +73,8 @@ namespace Genspil
 
         }
 
+       
+
         public class GameData
         {
             public GameInfo[] Games { get; set; } // array to store game information
@@ -77,10 +83,10 @@ namespace Genspil
             {
                 Games = new GameInfo[]
                 {
-                new GameInfo("Chess", "Standard Edition", 80m, "Board", 2, GameCondition.New, GameStatus.Available, 3)
-                new GameInfo("Monopoly", "Limited Edition", 90m, "Board", 4, GameCondition.Good, GameStatus.OnItsWay)
-                new GameInfo("Monopoly", "German Edition", 70m, "Board", 4, GameCondition.Ok, GameStatus.Reserved, 2)
-                new GameInfo("Bad People", "Standard Ediiton", 40m, "Card", 3-10, GameCondition.Good, GameStatus.Available, 3)
+                new GameInfo("Chess", "Standard Edition", 80m, "Board", 2,3, GameCondition.New, GameStatus.Available)
+                new GameInfo("Monopoly", "Limited Edition", 90m, "Board", 4,2, GameCondition.Good, GameStatus.OnItsWay)
+                new GameInfo("Monopoly", "German Edition", 70m, "Board", 4,1, GameCondition.Ok, GameStatus.Reserved)
+                new GameInfo("Bad People", "Standard Ediiton", 40m, "Card", 3-10, 4, GameCondition.Good, GameStatus.Available)
                 }
             }
         }

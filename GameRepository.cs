@@ -28,7 +28,7 @@ namespace Genspil
                     foreach (var game in games )
                     {
                         // Format of the properties
-                        string line = $"{game.Title};{game.Edition};{game.BasePrice};{game.Gemre};{game.NumberOfPlayers};{game.Condition};{game.Status}" ;
+                        string line = $"{game.Title};{game.Edition};{game.BasePrice};{game.Gemre};{game.NumberOfPlayers};{game.NumberOfGames};{game.Condition};{game.Status}" ;
                         // write the formatted line to the file 
                         writer.WriteLine(line);
                     }
@@ -71,9 +71,10 @@ namespace Genspil
                             parts[1],   // Edition
                             decimal.Parse(parts[2]),  // BasePrice 
                             parts[3],   // Genre
-                            int.Parse(parts[4],   // NumberOfPlayers
-                            (GameStorage.GameCondition)Enum.Parse(typeof(GameStorage.GameCondition), parts[5]),  //  GameConditon
-                            (GameStorage.GameStatus)Enum.Parse(typeof(GameStorage.GameStatus), parts[6])  // GameStatus
+                            int.Parse(parts[4]),   // NumberOfPlayers
+                            int.Parse(parts[5]),
+                            (GameStorage.GameCondition)Enum.Parse(typeof(GameStorage.GameCondition), parts[6]),  //  GameConditon
+                            (GameStorage.GameStatus)Enum.Parse(typeof(GameStorage.GameStatus), parts[7])  // GameStatus
                         );
 
                         // Add the game to the list of games 
