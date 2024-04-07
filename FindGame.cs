@@ -8,28 +8,41 @@ namespace Genspil
 {
     internal class FindGame
     {
-        public static void Search(string searchName)
+        public static void Search(string searchName, GameStorage.GameData gameData)
         {
-            var result = new string[searchTerm.Length];
-            var j = 0;
 
-            Console.WriteLine("\n\nSøgeresultat: \n");
+            GameStorage.GameInfo[] games = gameData.Games;
 
-            for (int i = 0; i < searchTerm.Length; i++)
+            var result = new List<GameStorage.GameInfo>();
+
+            Console.WriteLine("\n\nSearch Result: \n");
+
+            foreach (var game in games)
             {
-                if (searchTerm[i].Contains(searchName))
+                if (game.Title.Contains(searchName))
                 {
-                    result[j] = searchTerm[i];
-                    j++;
-
-                    foreach (string term in result)
-                    {
-                        Console.WriteLine("Navn: {0}\nAntal spillere: {1}\nAntal på lager: {2}\nStand: {3}\n", name[i], players[i], amount[i], condition[i]);
-                        break;
-                    }
+                    result.Add(game);
                 }
-                continue;
+            }
+
+            if (result.Count == 0)
+            {
+                Console.WriteLine("No games found with the provided title.");
+                return;
+            }
+
+            foreach (var game in result)
+            {
+                Console.WriteLine($"Title: {game.Title}");
+                Console.WriteLine($"Edition: {game.Edition}");
+                Console.WriteLine($"Base Price: {game.BasePrice:C}");
+                Console.WriteLine($"Genre: {game.Genre}");
+                Console.WriteLine($"Number of Players: {game.NumberOfPlayers}");
+                Console.WriteLine($"Condition: {game.Condition}");
+                Console.WriteLine($"Status: {game.Status}");
+                Console.WriteLine(); // Add a blank line for readability
             }
         }
     }
+
 }
