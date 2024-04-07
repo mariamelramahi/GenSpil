@@ -11,6 +11,7 @@ namespace Genspil
         {
             New,
             Good,
+            Used, 
             Ok,
             Damaged
         }
@@ -20,8 +21,8 @@ namespace Genspil
         {
             Available,
             Reserved,
-            OnItsWay,s
-            WaitList
+            OnItsWay,
+            WaitList,
         }
 
         // A class representing a game
@@ -83,11 +84,12 @@ namespace Genspil
             {
                 Games = new GameInfo[]
                 {
-                new GameInfo("Chess", "Standard Edition", 80m, "Board", 2,3, GameCondition.New, GameStatus.Available)
-                new GameInfo("Monopoly", "Limited Edition", 90m, "Board", 4,2, GameCondition.Good, GameStatus.OnItsWay)
-                new GameInfo("Monopoly", "German Edition", 70m, "Board", 4,1, GameCondition.Ok, GameStatus.Reserved)
-                new GameInfo("Bad People", "Standard Ediiton", 40m, "Card", 3-10, 4, GameCondition.Good, GameStatus.Available)
-                }
+                    new GameInfo("Chess", "Standard Edition", 80m, "Board", 2, 3, GameCondition.New, GameStatus.Available),
+                    new GameInfo("Monopoly", "Limited Edition", 90m, "Board", 4, 2, GameCondition.Good, GameStatus.OnItsWay),
+                    new GameInfo("Monopoly", "German Edition", 70m, "Board", 4, 1, GameCondition.Ok, GameStatus.Reserved),
+                    new GameInfo("Bad People", "Standard Ediiton", 40m, "Card", 3 - 10, 4, GameCondition.Good, GameStatus.Available)
+                };
+            }
             }
         }
 

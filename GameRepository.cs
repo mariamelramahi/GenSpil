@@ -28,7 +28,7 @@ namespace Genspil
                     foreach (var game in games )
                     {
                         // Format of the properties
-                        string line = $"{game.Title};{game.Edition};{game.BasePrice};{game.Gemre};{game.NumberOfPlayers};{game.NumberOfGames};{game.Condition};{game.Status}" ;
+                        string line = $"{game.Title};{game.Edition};{game.BasePrice};{game.Genre};{game.NumberOfPlayers};{game.NumberOfGames};{game.Condition};{game.Status}" ;
                         // write the formatted line to the file 
                         writer.WriteLine(line);
                     }
@@ -49,7 +49,7 @@ namespace Genspil
             try
             {
                 // Check if the file exists 
-                if (!filename.Exists(filename))
+                if (!File.Exists(filename))
                 {
                     throw new FileNotFoundException("Data File does not exist.");
                 }
