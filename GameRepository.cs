@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using static Genspil.GameStorage;
 
 namespace Genspil
 {
@@ -9,11 +10,12 @@ namespace Genspil
         public string DataFileName { get; }
 
         // Constructor to intialize DataFileName
-        public DataHandler(string dataFileName)
+        public DataHandler()
         {
-            DataFileName = dataFileName;
+            DataFileName = "GameStorage.txt";
             // intialize game data
-            new GameData()
+            new GameData();
+            LoadGames();
         }
       
 
@@ -103,15 +105,59 @@ namespace Genspil
 
             public GameData()
             {
-                GameManager.AddGame("Chess", "Standard Edition", 80m, "Board", 2, 3, 0, GameStatus.Available);
-                GameManager.AddGame("Monopoly", "Limited Edition", 90m, "Board", 4, 2, 2, GameStatus.OnItsWay);
-                GameManager.AddGame("Monopoly", "German Edition", 70m, "Board", 4, 1, 3, GameStatus.Reserved);
-                GameManager.AddGame("Bad People", "Standard Edition", 40m, "Card", 3 - 10, 4, 2, GameStatus.Available);
-
+                AddGame("Chess", "Standard Edition", 80m, "Board", 2, 3, 0, GameStorage.GameStatus.Available);
+                AddGame("Monopoly", "Limited Edition", 90m, "Board", 4, 2, 2, GameStorage.GameStatus.OnItsWay);
+                AddGame("Monopoly", "German Edition", 70m, "Board", 4, 1, 3, GameStorage.GameStatus.Reserved);
+                AddGame("Bad People", "Standard Edition", 40m, "Card", 3 - 10, 4, 2, GameStorage.GameStatus.Available);
             }
         }
 
 
+            //// Method to add a game directly into the array
+            //public static void AddGame(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int numberOfGames, int conditionChoice, GameStatus status)
+            //{
+
+            //    // Input bliver henvist til GameCondition enum
+            //    GameCondition condition = (GameCondition)(conditionChoice - 1);
+
+            //    // Ny spil bliver tilføjet bliver baseret udfra condition og status.
+            //    GameInfo newGame = new GameInfo(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
+            //    DataHandler.GameData.Add(newGame);
+
+
+            //    Console.WriteLine("Game added successfully.");
+            //}
+
+
+            //public static void DisplayInventory(List<GameInfo> games)
+            //{
+
+            //    Console.WriteLine("Lagerbeholdning:");
+            //    foreach (var game in games)
+            //    {
+            //        Console.WriteLine($"Title: {game.Title}");
+            //        Console.WriteLine($"Edition: {game.Edition}");
+            //        Console.WriteLine($"Base Price: {game.BasePrice:C}"); // Display base price as currency
+            //        Console.WriteLine($"Genre: {game.Genre}");
+            //        Console.WriteLine($"Number of Players: {game.NumberOfPlayers}");
+            //        Console.WriteLine($"Condition: {game.Condition}");
+            //        Console.WriteLine($"Status: {game.Status}");
+            //        Console.WriteLine(); // Add a blank line for readability
+            //    }
+            //}
+
+            //public static void DisplayInventoryByGenre()
+            //{
+            //    var sortedGames = GameData.OrderBy(games => games.Genre);
+            //    DisplayInventory(sortedGames.ToList());
+            //}
+
+            //public static void DisplayInventoryByTitle()
+            //{
+            //    var sortedGames = gamesarray.OrderBy(games => games.Title);
+            //    DisplayInventory(sortedGames.ToList());
+            //}
+        
 
     }
 }

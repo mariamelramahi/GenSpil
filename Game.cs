@@ -78,56 +78,7 @@ namespace Genspil
        
 
 
-        public class GameManager
-        {
-            // Array to store game information
-            public static List<GameInfo> gamesarray = new List<GameInfo>() ; 
-
-            // Method to add a game directly into the array
-            public static void AddGame(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int numberOfGames, int conditionChoice, GameStatus status)
-            {
-                
-                    // Input bliver henvist til GameCondition enum
-                    GameCondition condition = (GameCondition)(conditionChoice - 1);
-
-                    // Ny spil bliver tilføjet bliver baseret udfra condition og status.
-                    GameInfo newGame = new GameInfo(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
-                    gamesarray.Add(newGame);
-
-            
-                    Console.WriteLine("Game added successfully.");
-            }
-
-            
-            public static void DisplayInventory(List<GameInfo> games )
-            {
-                
-                Console.WriteLine("Lagerbeholdning:");
-                foreach (var game in games) 
-                {
-                    Console.WriteLine($"Title: {game.Title}");
-                    Console.WriteLine($"Edition: {game.Edition}");
-                    Console.WriteLine($"Base Price: {game.BasePrice:C}"); // Display base price as currency
-                    Console.WriteLine($"Genre: {game.Genre}");
-                    Console.WriteLine($"Number of Players: {game.NumberOfPlayers}");
-                    Console.WriteLine($"Condition: {game.Condition}");
-                    Console.WriteLine($"Status: {game.Status}");
-                    Console.WriteLine(); // Add a blank line for readability
-                }
-            }
-            
-            public static void DisplayInventoryByGenre()
-            {
-                var sortedGames = gamesarray.OrderBy(games => games.Genre);
-                DisplayInventory(sortedGames.ToList());
-            }
-
-            public static void DisplayInventoryByTitle()
-            {
-                var sortedGames = gamesarray.OrderBy(games =>games.Title);
-                DisplayInventory(sortedGames.ToList());
-            }
-        }
+        
 
 }   }
 

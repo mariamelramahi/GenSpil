@@ -38,6 +38,7 @@ namespace Genspil
                 Console.WriteLine($"Base Price: {game.BasePrice:C}");
                 Console.WriteLine($"Genre: {game.Genre}");
                 Console.WriteLine($"Number of Players: {game.NumberOfPlayers}");
+                Console.WriteLine($"Number of Games: {game.NumberOfGames}");
                 Console.WriteLine($"Condition: {game.Condition}");
                 Console.WriteLine($"Status: {game.Status}");
                 Console.WriteLine(); // Add a blank line for readability

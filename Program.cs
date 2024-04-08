@@ -3,18 +3,16 @@ namespace Genspil
 {
     public class Program
     {
-        //Mangler Vareoptælling
-        //Class Game repository er der mange fejl. Ved ikke hvorfor.
-
+        //starter med at kalde dem for at lave repositories som kan bruges i programmet
         public static CustomerRepository customerRepository = new CustomerRepository();
-        public static RequestRepository requestRepository = new RequestRepository(customerRepository); //starter med at kalde dem for at lave repositories som kan bruges i programmet
+        public static RequestRepository requestRepository = new RequestRepository(customerRepository); 
         public static DataHandler dataHandler = new DataHandler();
 
 
         static void Main(string[] args)
         {
 
-            GameStorage.GameData gameData = new GameStorage.GameData();
+            DataHandler.GameData gameData = new DataHandler.GameData();
                       
             bool keeprunning = true;
             do
@@ -132,72 +130,72 @@ namespace Genspil
 
             //TILFØJE NYT SPIL//
 
-            static void addNewGame()
-            {
-                GameStorage.GameManager gameManager = new GameStorage.GameManager();
+            //static void addNewGame()
+            //{
+            //    GameStorage.GameManager gameManager = new GameStorage.GameManager();
 
-                string title = GetUserInput("Titel: ");
-                string edition = GetUserInput("Udgave: ");
-                Console.WriteLine("Basepris: ");
+            //    string title = GetUserInput("Titel: ");
+            //    string edition = GetUserInput("Udgave: ");
+            //    Console.WriteLine("Basepris: ");
 
-                decimal basePrice;
-                while (!decimal.TryParse(Console.ReadLine(), out basePrice))
-                {
-                    Console.WriteLine("Ugyldig input. Tast et nummer");
-                }
-                string genre = GetUserInput("Genre");
+            //    decimal basePrice;
+            //    while (!decimal.TryParse(Console.ReadLine(), out basePrice))
+            //    {
+            //        Console.WriteLine("Ugyldig input. Tast et nummer");
+            //    }
+            //    string genre = GetUserInput("Genre");
 
-                Console.WriteLine("Antal spillere: ");
-                int numberOfPlayers;
-                while (!int.TryParse(Console.ReadLine(), out numberOfPlayers))
-                {
-                    Console.WriteLine("Ugyldig input. Tast et nummer");
-                }
+            //    Console.WriteLine("Antal spillere: ");
+            //    int numberOfPlayers;
+            //    while (!int.TryParse(Console.ReadLine(), out numberOfPlayers))
+            //    {
+            //        Console.WriteLine("Ugyldig input. Tast et nummer");
+            //    }
 
-                Console.WriteLine("Antal spil: ");
-                int numberOfGames;
-                while (!int.TryParse(Console.ReadLine(), out numberOfGames))
-                {
-                    Console.WriteLine("Ugyldig input. Tast et nummer");
-                }
+            //    Console.WriteLine("Antal spil: ");
+            //    int numberOfGames;
+            //    while (!int.TryParse(Console.ReadLine(), out numberOfGames))
+            //    {
+            //        Console.WriteLine("Ugyldig input. Tast et nummer");
+            //    }
 
-                Console.WriteLine("Tilstand (tast et nummer): 1.New 2.Used, 3.Good, 4.Ok, 5.Damaged): ");
-                int conditionChoice;
+            //    Console.WriteLine("Tilstand (tast et nummer): 1.New 2.Used, 3.Good, 4.Ok, 5.Damaged): ");
+            //    int conditionChoice;
 
-                //Tager det fra class "games", og gir condition for spillet ud fra det nummer man indtaster. 
-                while (!int.TryParse(Console.ReadLine(), out conditionChoice) || conditionChoice < 1 || conditionChoice > 5)
-                {
-                    Console.WriteLine("Ugyldigt valg. Vælg venligst et gyldigt tilstand.");
-                    Console.Write("Vælg tilstand (indtast nummer): ");
-                }
+            //    //Tager det fra class "games", og gir condition for spillet ud fra det nummer man indtaster. 
+            //    while (!int.TryParse(Console.ReadLine(), out conditionChoice) || conditionChoice < 1 || conditionChoice > 5)
+            //    {
+            //        Console.WriteLine("Ugyldigt valg. Vælg venligst et gyldigt tilstand.");
+            //        Console.Write("Vælg tilstand (indtast nummer): ");
+            //    }
 
-                //Tager det fra class "games", og gir status for spillet ud fra det nummer man indtaster.
+            //    //Tager det fra class "games", og gir status for spillet ud fra det nummer man indtaster.
 
-                Console.WriteLine("Status (tast et nummer): 1.Available, 2.Reserved, 3.OnItsWay, 4.WaitList ");
-                int statusChoice;
-                while (!int.TryParse(Console.ReadLine(), out statusChoice) || statusChoice < 1 || statusChoice > 4)
-                {
-                    Console.WriteLine("Ugyldigt valg. Vælg venligst et gyldigt status.");
-                    Console.Write("Vælg status (indtast nummer): ");
-                }
+            //    Console.WriteLine("Status (tast et nummer): 1.Available, 2.Reserved, 3.OnItsWay, 4.WaitList ");
+            //    int statusChoice;
+            //    while (!int.TryParse(Console.ReadLine(), out statusChoice) || statusChoice < 1 || statusChoice > 4)
+            //    {
+            //        Console.WriteLine("Ugyldigt valg. Vælg venligst et gyldigt status.");
+            //        Console.Write("Vælg status (indtast nummer): ");
+            //    }
 
-                // konverter conditionChoice til GameCondition enum
-                GameStorage.GameCondition condition = (GameStorage.GameCondition)(conditionChoice - 1);
+            //    // konverter conditionChoice til GameCondition enum
+            //    GameStorage.GameCondition condition = (GameStorage.GameCondition)(conditionChoice - 1);
 
-                // konverter statusChoice til GameStatus enum
-                GameStorage.GameStatus status = (GameStorage.GameStatus)statusChoice - 1;
+            //    // konverter statusChoice til GameStatus enum
+            //    GameStorage.GameStatus status = (GameStorage.GameStatus)statusChoice - 1;
 
-                // Tilføjer det nye spil ved at bruge GameManager
-                GameStorage.GameManager.AddGame(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, conditionChoice, status);
+            //    // Tilføjer det nye spil ved at bruge GameManager
+            //    GameStorage.GameManager.AddGame(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, conditionChoice, status);
 
-                // Viser det nye spil der er tilføjet. 
-                GameStorage.GameManager.DisplayInventory(dataHandler.LoadGames());
+            //    // Viser det nye spil der er tilføjet. 
+            //    GameStorage.GameManager.DisplayInventory(dataHandler.LoadGames());
 
-                //Mullighed for at fortsætte med at tilføje spil eller vende tilbage til hovedemenu. 
-                string answer = GetUserInput("Vælg: 1.Tilføj et nyt spil igen \n 2.Vende tilbage til hovedemenu. ");
+            //    //Mullighed for at fortsætte med at tilføje spil eller vende tilbage til hovedemenu. 
+            //    string answer = GetUserInput("Vælg: 1.Tilføj et nyt spil igen \n 2.Vende tilbage til hovedemenu. ");
 
 
-            }
+            //}
         }
 
         public static string GetUserInput(string initialGreeting)
