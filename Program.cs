@@ -21,20 +21,16 @@ namespace Genspil
             {
 
                 Menu menu = new Menu("Velkommen til Genspils lagerbeholdning, du har nu følgende valgmuligheder: ");
-                menu.AddMenuItem("Søge efter et spil på lageret", " søge efter spil på lageret\n");
-                menu.AddMenuItem("Tilføje nyt spil til lagerbeholdningen", " tilføje et nyt spil til lagerbeholdninen\n");
-                menu.AddMenuItem("Lave vareoptælling", " lave vareoptælling\n");
-                menu.AddMenuItem("Opret ny kunde", " oprette en ny kunde\n");
-                menu.AddMenuItem("Opret ny forespørgsel på et spil", " opprette en ny forespørgsel på et spil\n");
-                menu.AddMenuItem("Se hvilke forespørgsler på spil der ligger i systemet: ", " se hvilke forespørgsler på spil der ligger i systemet\n");
-                menu.AddMenuItem("Se eksisterende kunder", " se eksisterende kunder\n");
+                menu.AddMenuItem("Søge efter et spil på lageret");
+                menu.AddMenuItem("Tilføje nyt spil til lagerbeholdningen");
+                menu.AddMenuItem("Lave vareoptælling");
+                menu.AddMenuItem("Opret ny kunde");
+                menu.AddMenuItem("Opret ny forespørgsel på et spil");
+                menu.AddMenuItem("Se hvilke forespørgsler på spil der ligger i systemet: ");
+                menu.AddMenuItem("Se eksisterende kunder");
                 menu.Show();
 
-                Console.WriteLine("  \nVælg noget fra menuen: ");
-                int selection = menu.SelectMenuItem();
-                Console.Write("\nDu har valgt at ");
-                string answer = menu.GetAnswer(selection);
-                Console.WriteLine(answer);
+                string answer = GetUserInput("  \nVælg noget fra menuen: ");
 
                 switch (answer)
                 {
