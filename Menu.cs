@@ -22,14 +22,9 @@ namespace Genspil
             }
         }
 
-        public string GetAnswer(int selection)
+        public void AddMenuItem(string title)
         {
-            MenuItem menuItem = MenuItems[selection - 1];
-            return menuItem.Answer;
-        }
-        public void AddMenuItem(string title, string Answer)
-        {
-            MenuItem menuItem = new MenuItem(title, Answer);
+            MenuItem menuItem = new MenuItem(title);
             MenuItems = MenuItems.Concat(new MenuItem[] { menuItem }).ToArray();
             ItemCount = MenuItems.Length;
         }

@@ -20,14 +20,14 @@ namespace Genspil
             do
             {
 
-                Menu menu = new Menu(" Velkommen til Genspils lagerbeholdning, du har nu følgende valgmulihgeder: ");
-                menu.AddMenuItem("Søge efter et spil på lageret", "1");
-                menu.AddMenuItem("Tilføje nyt spil til lagerbeholdningen", "2");
-                menu.AddMenuItem("Lave vareoptælling", "3");
-                menu.AddMenuItem("Opret ny kunde", "42");
-                menu.AddMenuItem("Opret ny forespørgsel på et spil", " opprette en ny forespørgsel på et spil\n");
-                menu.AddMenuItem("Se hvilke forespørgsler på spil der ligger i systemet: ", " se hvilke forespørgsler på spil der ligger i systemet\n");
-                menu.AddMenuItem("Se eksisterende kunder", " se eksisterende kunder\n");
+                Menu menu = new Menu("Velkommen til Genspils lagerbeholdning, du har nu følgende valgmuligheder: ");
+                menu.AddMenuItem("Søge efter et spil på lageret");
+                menu.AddMenuItem("Tilføje nyt spil til lagerbeholdningen");
+                menu.AddMenuItem("Lave vareoptælling");
+                menu.AddMenuItem("Opret ny kunde");
+                menu.AddMenuItem("Opret ny forespørgsel på et spil");
+                menu.AddMenuItem("Se hvilke forespørgsler på spil der ligger i systemet: ");
+                menu.AddMenuItem("Se eksisterende kunder");
                 menu.Show();
 
                 string answer = GetUserInput("  \nVælg noget fra menuen: ");
