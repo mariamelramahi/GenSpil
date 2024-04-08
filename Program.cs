@@ -33,8 +33,8 @@ namespace Genspil
                 string answer = GetUserInput("  \nVælg noget fra menuen: ");
 
 
-                int selection = menu.SelectMenuItem();
-                Console.WriteLine("Du har valgt " + selection);
+               // int selection = menu.SelectMenuItem();
+                //Console.WriteLine("Du har valgt " + selection);
 
                 switch (answer)
                 {
@@ -48,8 +48,17 @@ namespace Genspil
                         break;
 
                     case "3":
-                        GameStorage.GameManager.DisplayInventoryByGenre();
-                        GameStorage.GameManager.DisplayInventoryByTitle();
+                        {
+                            int answer1 = int.Parse(GetUserInput("Udskriv på baggrund af genre(1) eller titel(2)?: "));
+                            if(answer1 == 1)
+                            {
+                                GameStorage.GameManager.DisplayInventoryByGenre();
+                            }
+                            else if (answer1 == 2)
+                            {
+                                GameStorage.GameManager.DisplayInventoryByTitle();
+                            }                 
+                        }
                         break; 
                     case "4":
                         customerRepository.AddCustomer();

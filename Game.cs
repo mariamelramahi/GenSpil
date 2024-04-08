@@ -122,18 +122,7 @@ namespace Genspil
                 }
             }
 
-            public static void DisplayInventoryByGenre()
-            {
-                var sortedGames = gamesarray.OrderBy(g => g.Genre).ToList();
-                DisplayInventory(sortedGames);
-            }
-
-            public static void DisplayInventoryByTitle()
-            {
-                var sortedGames = gamesarray.OrderBy(g =>g.Title).ToList();
-                DisplayInventory(sortedGames);
-            }
-
+            
             public static void DisplayInventory(List<GameInfo> games )
             {
                 
@@ -154,14 +143,14 @@ namespace Genspil
             
             public static void DisplayInventoryByGenre()
             {
-                var sortedGames = gamesarray.OrderBy(g => g.Genre);
-                DisplayInventory(sortedGames);
+                var sortedGames = gamesarray.OrderBy(games => games.Genre);
+                DisplayInventory(sortedGames.ToList());
             }
 
             public static void DisplayInventoryByTitle()
             {
-                var sortedGames = gamesarray.OrderBy(g =>g.Title);
-                DisplayInventory(sortedGames);
+                var sortedGames = gamesarray.OrderBy(games =>games.Title);
+                DisplayInventory(sortedGames.ToList());
             }
         }
 
