@@ -12,7 +12,6 @@ namespace Genspil
             New,
             Used,
             Good, 
-            //Used, - Står der to gange
             Ok,
             Damaged
         }
@@ -100,7 +99,7 @@ namespace Genspil
             private static int nextIndex = 0; // Keep track of the next available index in the array
 
             // Method to add a game directly into the array
-            public static void AddGame(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int conditionChoice, GameStatus status)
+            public static void AddGame(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int numberOfGames, int conditionChoice, GameStatus status)
             {
                 if (nextIndex < gamesarray.Length)
                 {
@@ -108,7 +107,7 @@ namespace Genspil
                     GameCondition condition = (GameCondition)(conditionChoice - 1);
 
                     // Ny spil bliver tilføjet bliver baseret udfra condition og status.
-                    GameInfo newGame = new GameInfo(title, edition, basePrice, genre, numberOfPlayers, condition, status);
+                    GameInfo newGame = new GameInfo(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
 
                     // Nyt spil bliver tilføjet til array
                     gamesarray[nextIndex] = newGame;

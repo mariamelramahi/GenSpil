@@ -9,9 +9,9 @@ namespace Genspil
         public string DataFileName { get; }
 
         // Constructor to intialize DataFileName
-        public DataHandler(string dataFileName)
+        public DataHandler()
         {
-            DataFileName = dataFileName;
+            DataFileName = "Gamestorage.txt";
         }
 
         // Method to save games to a file 
@@ -43,7 +43,7 @@ namespace Genspil
         }
 
         // Method to load games from a file 
-        private GameStorage.GameInfo[] LoadGames()
+        private GameStorage.GameInfo[]? LoadGames()
         {
             string filename = DataFileName;
             try
@@ -59,7 +59,7 @@ namespace Genspil
                 // Open a streamreader to read from the file
                 using (StreamReader reader = new StreamReader(filename))
                 {
-                    string line;
+                    string? line;
                     // read each line from the file
                     while ((line = reader.ReadLine()) != null)
                     {
