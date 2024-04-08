@@ -77,18 +77,6 @@ namespace Genspil
 
        
 
-        public class GameData
-        {
-
-            public GameData()
-            {
-                GameManager.AddGame("Chess", "Standard Edition", 80m, "Board", 2, 3, 0, GameStatus.Available);
-                GameManager.AddGame("Monopoly", "Limited Edition", 90m, "Board", 4, 2, 2, GameStatus.OnItsWay);
-                GameManager.AddGame("Monopoly", "German Edition", 70m, "Board", 4, 1, 3, GameStatus.Reserved);
-                GameManager.AddGame("Bad People", "Standard Edition", 40m, "Card", 3 - 10, 4, 2, GameStatus.Available);
-
-            }
-        }
 
         public class GameManager
         {

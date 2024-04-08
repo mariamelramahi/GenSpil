@@ -9,10 +9,13 @@ namespace Genspil
         public string DataFileName { get; }
 
         // Constructor to intialize DataFileName
-        public DataHandler()
+        public DataHandler(string dataFileName)
         {
-            DataFileName = "Gamestorage.txt";
+            DataFileName = dataFileName;
+            // intialize game data
+            new GameData()
         }
+      
 
         // Method to save games to a file 
         public void SaveGames(GameStorage.GameInfo[] games)
@@ -93,6 +96,19 @@ namespace Genspil
             }
 
             return null; // return null if an exception occurs 
+        }
+
+        public class GameData
+        {
+
+            public GameData()
+            {
+                GameManager.AddGame("Chess", "Standard Edition", 80m, "Board", 2, 3, 0, GameStatus.Available);
+                GameManager.AddGame("Monopoly", "Limited Edition", 90m, "Board", 4, 2, 2, GameStatus.OnItsWay);
+                GameManager.AddGame("Monopoly", "German Edition", 70m, "Board", 4, 1, 3, GameStatus.Reserved);
+                GameManager.AddGame("Bad People", "Standard Edition", 40m, "Card", 3 - 10, 4, 2, GameStatus.Available);
+
+            }
         }
 
 
