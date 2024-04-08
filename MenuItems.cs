@@ -10,7 +10,7 @@ namespace Genspil
         public MenuItem(string Title, string Answer)
         {
             this.Title = Title; 
-            this.Answer = Answer;
+            //this.Answer = Answer;
         }
     }
 }

@@ -32,10 +32,6 @@ namespace Genspil
 
                 string answer = GetUserInput("  \nVælg noget fra menuen: ");
 
-
-               // int selection = menu.SelectMenuItem();
-                //Console.WriteLine("Du har valgt " + selection);
-
                 switch (answer)
                 {
                     case "1":
