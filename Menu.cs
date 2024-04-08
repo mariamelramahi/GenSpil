@@ -40,7 +40,7 @@ namespace Genspil
             {
                 try
                 {
-                    int choice = int.Parse(Console.ReadLine());
+                    int choice = int.Parse(Program.GetUserInput(""));
                     if (choice <= ItemCount && choice >= 0)
                     {
                         return choice;
@@ -53,6 +53,7 @@ namespace Genspil
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error: " + ex.ToString());
                     Console.WriteLine("Ugyldigt input, prøv igen: ");
                     return SelectMenuItem();
                 }

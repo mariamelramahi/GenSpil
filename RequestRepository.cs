@@ -44,11 +44,15 @@ namespace Genspil
             {
                 using (StreamReader reader = new StreamReader(path))
                 {
-                    string line; 
+                    string? line; 
                     while ((line = reader.ReadLine()) != null)
                     {
                         string[] data = line.Split(';');
-                        Customer customer = CustomerRepository.FindByName(data[1], data[2]);
+                        Customer? customer = CustomerRepository.FindByName(data[1], data[2]);
+                        if (customer == null)
+                        {
+                            throw new Exception("Customer not found for data " + data);//hvis kunden der er gemt på requestet ikke findes, så laver den et exception
+                        }
                         Request request = new Request(data[0], customer);
                         Requests.Add(request);
                     }
@@ -56,20 +60,17 @@ namespace Genspil
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error while saving request " + ex.Message);
+                Console.WriteLine("Error while loading request " + ex.Message);
             }
         }
         public Request AddRequests()
         {
-            Console.WriteLine("Vil du søge efter eksisterende kunde (1), eller oprette en ny kunde? (2): ");
-            int answer = int.Parse(Console.ReadLine());
-            Customer customer; //findes en variabel af typen Customer som vi kalder for customer. Den har foreløpig ingen værdi, så den har værdien null implicit. 
+            int answer = int.Parse(Program.GetUserInput("Vil du søge efter eksisterende kunde (1), eller oprette en ny kunde? (2): "));
+            Customer? customer; //findes en variabel af typen Customer som vi kalder for customer. Den har foreløpig ingen værdi, så den har værdien null implicit. 
             if (answer == 1)
             {
-                Console.WriteLine("Indtast fornavn: ");
-                string firstname = Console.ReadLine();
-                Console.WriteLine("Indtast efternavn: ");
-                string lastname = Console.ReadLine();
+                string firstname = Program.GetUserInput("Indtast fornavn: ");
+                string lastname = Program.GetUserInput("Indtast efternavn: ");
                 customer = CustomerRepository.FindByName(firstname, lastname);
                 if (customer == null)
                 {
@@ -86,8 +87,7 @@ namespace Genspil
                 Console.WriteLine("Ugyldigt input, prøv igen: ");
                 return AddRequests();//rekursivt kald 
             }
-            Console.WriteLine("Indtast navn på spil: ");
-            string title = Console.ReadLine();
+            string title = Program.GetUserInput("Indtast navn på spil: ");
             Request request = new Request(title, customer);
 
             Requests.Add(request);
