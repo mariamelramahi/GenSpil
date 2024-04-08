@@ -48,7 +48,9 @@ namespace Genspil
                         break;
 
                     case "3":
-                        //lave vareoptælling
+                        GameStorage.GameManager.DisplayInventoryByGenre();
+                        GameStorage.GameManager.DisplayInventoryByTitle();
+                        break; 
                     case "4":
                         customerRepository.AddCustomer();
                         break;
@@ -184,7 +186,7 @@ namespace Genspil
                 GameStorage.GameManager.AddGame(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, conditionChoice, status);
 
                 // Viser det nye spil der er tilføjet. 
-                GameStorage.GameManager.DisplayInventory();
+                GameStorage.GameManager.DisplayInventory(dataHandler.LoadGames());
 
                 //Mullighed for at fortsætte med at tilføje spil eller vende tilbage til hovedemenu. 
                 string answer = GetUserInput("Vælg: 1.Tilføj et nyt spil igen \n 2.Vende tilbage til hovedemenu. ");

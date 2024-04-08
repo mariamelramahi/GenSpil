@@ -1,6 +1,7 @@
 ﻿
 
 using Genspil;
+using System.Diagnostics;
 
 namespace Genspil
 {
@@ -123,28 +124,30 @@ namespace Genspil
 
             public static void DisplayInventoryByGenre()
             {
-                var sortedGames = gamesarray.OrderBy(g => g.Genre);
+                var sortedGames = gamesarray.OrderBy(g => g.Genre).ToList();
                 DisplayInventory(sortedGames);
             }
 
             public static void DisplayInventoryByTitle()
             {
-                var sortedGames = gamesarray.OrderBy(g =>g.Title);
+                var sortedGames = gamesarray.OrderBy(g =>g.Title).ToList();
                 DisplayInventory(sortedGames);
             }
 
-            public static void DisplayInventory()
+            public static void DisplayInventory(List<GameInfo> games )
             {
+                
                 Console.WriteLine("Lagerbeholdning:");
-                for (int i = 0; i < nextIndex; i++)
+                Console.WriteLine("Lagerbeholdning:");
+                foreach (var game in games) 
                 {
-                    Console.WriteLine($"Title: {gamesarray[i].Title}");
-                    Console.WriteLine($"Edition: {gamesarray[i].Edition}");
-                    Console.WriteLine($"Base Price: {gamesarray[i].BasePrice:C}"); // Display base price as currency
-                    Console.WriteLine($"Genre: {gamesarray[i].Genre}");
-                    Console.WriteLine($"Number of Players: {gamesarray[i].NumberOfPlayers}");
-                    Console.WriteLine($"Condition: {gamesarray[i].Condition}");
-                    Console.WriteLine($"Status: {gamesarray[i].Status}");
+                    Console.WriteLine($"Title: {game.Title}");
+                    Console.WriteLine($"Edition: {game.Edition}");
+                    Console.WriteLine($"Base Price: {game.BasePrice:C}"); // Display base price as currency
+                    Console.WriteLine($"Genre: {game.Genre}");
+                    Console.WriteLine($"Number of Players: {game.NumberOfPlayers}");
+                    Console.WriteLine($"Condition: {game.Condition}");
+                    Console.WriteLine($"Status: {game.Status}");
                     Console.WriteLine(); // Add a blank line for readability
                 }
             }

@@ -43,7 +43,7 @@ namespace Genspil
         }
 
         // Method to load games from a file 
-        private GameStorage.GameInfo[]? LoadGames()
+        public List<GameStorage.GameInfo>? LoadGames()
         {
             string filename = DataFileName;
             try
@@ -82,7 +82,7 @@ namespace Genspil
                     }
                 }
                 // convert to the list of games to an array and return
-                return games.ToArray();
+                return games;
 
             }
 
