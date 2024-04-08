@@ -12,7 +12,7 @@ namespace Genspil
         static void Main(string[] args)
         {
 
-            DataHandler.GameData gameData = new DataHandler.GameData();
+            DataHandler dataHandler = new DataHandler();
                       
             bool keeprunning = true;
             do
@@ -46,7 +46,7 @@ namespace Genspil
                             int answer1 = int.Parse(GetUserInput("Udskriv på baggrund af genre(1) eller titel(2)?: "));
                             if(answer1 == 1)
                             {
-                                GameStorage.GameManager.DisplayInventoryByGenre();
+                                DataHandler.DisplayInventoryByGenre();
                             }
                             else if (answer1 == 2)
                             {

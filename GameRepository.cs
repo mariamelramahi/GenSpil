@@ -17,7 +17,7 @@ namespace Genspil
             new GameData();
             LoadGames();
         }
-      
+
 
         // Method to save games to a file 
         public void SaveGames(GameStorage.GameInfo[] games)
@@ -30,10 +30,10 @@ namespace Genspil
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
                     // Iterate trough each game and write its properties to a line in the file
-                    foreach (var game in games )
+                    foreach (var game in games)
                     {
                         // Format of the properties
-                        string line = $"{game.Title};{game.Edition};{game.BasePrice};{game.Genre};{game.NumberOfPlayers};{game.NumberOfGames};{game.Condition};{game.Status}" ;
+                        string line = $"{game.Title};{game.Edition};{game.BasePrice};{game.Genre};{game.NumberOfPlayers};{game.NumberOfGames};{game.Condition};{game.Status}";
                         // write the formatted line to the file 
                         writer.WriteLine(line);
                     }
@@ -86,7 +86,7 @@ namespace Genspil
                         games.Add(game);
                     }
                 }
-                // convert to the list of games to an array and return
+                // return
                 return games;
 
             }
@@ -98,6 +98,34 @@ namespace Genspil
             }
 
             return null; // return null if an exception occurs 
+        }
+
+
+        public void AddGame(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int numberOfGames, GameCondition condition, GameStatus status)
+        {
+            try
+            {
+                // create a new game
+                var newGame = new GameInfo(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
+
+                // Retrieve exsting games 
+                GameData gamesdata = new GameData();
+                List<GameInfo> gamesList = new List<GameInfo>(gamesdata.Games);
+
+                // Add the new game to the list 
+                gamesList.Add(newGame);
+
+                // Update GameData with the new list of games
+                gamesdata.Games = gamesList;
+
+                // Save the updated game to the file
+                SaveGames(gamesdata.Games);
+            }
+
+            catch (Exception exp)
+            {
+                Console.WriteLine($"Error while adding game: {exp.Message}");
+            }
         }
 
         public class GameData
@@ -112,52 +140,42 @@ namespace Genspil
             }
         }
 
+        public void DisplaySortedGames(string sortBy)
+        {
+            var games = LoadGames();
 
-            //// Method to add a game directly into the array
-            //public static void AddGame(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int numberOfGames, int conditionChoice, GameStatus status)
-            //{
+            if (games != null && games.Any())
+            {
+                // sort the games based on the selected criteria
+                switch (sortBy.ToLower())
+                {
+                    case "title":
+                        games = games.OrderBy(g => g.Title);
+                        break;
+                    case "genre":
+                        games = games.OrderBy(g => g.Genre);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid sorting criteria. Plrase choose title or genre. ");
+                        return;
+                }
 
-            //    // Input bliver henvist til GameCondition enum
-            //    GameCondition condition = (GameCondition)(conditionChoice - 1);
+                // Display the sorted games
+                Console.WriteLine("Sorted Games:");
+                foreach (var game in games)
+                {
+                    Console.WriteLine ($"Title: {game.Title}, Genre: {game.Genre}");
+                }
+            }
 
-            //    // Ny spil bliver tilføjet bliver baseret udfra condition og status.
-            //    GameInfo newGame = new GameInfo(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
-            //    DataHandler.GameData.Add(newGame);
-
-
-            //    Console.WriteLine("Game added successfully.");
-            //}
-
-
-            //public static void DisplayInventory(List<GameInfo> games)
-            //{
-
-            //    Console.WriteLine("Lagerbeholdning:");
-            //    foreach (var game in games)
-            //    {
-            //        Console.WriteLine($"Title: {game.Title}");
-            //        Console.WriteLine($"Edition: {game.Edition}");
-            //        Console.WriteLine($"Base Price: {game.BasePrice:C}"); // Display base price as currency
-            //        Console.WriteLine($"Genre: {game.Genre}");
-            //        Console.WriteLine($"Number of Players: {game.NumberOfPlayers}");
-            //        Console.WriteLine($"Condition: {game.Condition}");
-            //        Console.WriteLine($"Status: {game.Status}");
-            //        Console.WriteLine(); // Add a blank line for readability
-            //    }
-            //}
-
-            //public static void DisplayInventoryByGenre()
-            //{
-            //    var sortedGames = GameData.OrderBy(games => games.Genre);
-            //    DisplayInventory(sortedGames.ToList());
-            //}
-
-            //public static void DisplayInventoryByTitle()
-            //{
-            //    var sortedGames = gamesarray.OrderBy(games => games.Title);
-            //    DisplayInventory(sortedGames.ToList());
-            //}
-        
+            else
+            {
+                Console.WriteLine("No games found.");
+            }
+            
+           
+        }
 
     }
+
 }
