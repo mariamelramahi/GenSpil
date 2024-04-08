@@ -8,14 +8,13 @@ namespace Genspil
 
         public static CustomerRepository customerRepository = new CustomerRepository();
         public static RequestRepository requestRepository = new RequestRepository(customerRepository); //starter med at kalde dem for at lave repositories som kan bruges i programmet
-        
+        public static DataHandler dataHandler = new DataHandler();
 
 
         static void Main(string[] args)
         {
 
             GameStorage.GameData gameData = new GameStorage.GameData();
-            customerRepository.LoadCustomers(); //loader filen med kunder, således at vi har de eksisterende kunder i repositoriet
                       
             bool keeprunning = true;
             do
@@ -26,6 +25,9 @@ namespace Genspil
                 menu.AddMenuItem("Tilføje nyt spil til lagerbeholdningen", "2");
                 menu.AddMenuItem("Lave vareoptælling", "3");
                 menu.AddMenuItem("Opret ny kunde", "42");
+                menu.AddMenuItem("Opret ny forespørgsel på et spil", " opprette en ny forespørgsel på et spil\n");
+                menu.AddMenuItem("Se hvilke forespørgsler på spil der ligger i systemet: ", " se hvilke forespørgsler på spil der ligger i systemet\n");
+                menu.AddMenuItem("Se eksisterende kunder", " se eksisterende kunder\n");
                 menu.Show();
                 Console.WriteLine("  \nVælg noget fra menuen: ");
                 string answer = Console.ReadLine();
@@ -47,9 +49,19 @@ namespace Genspil
                         break;
 
                     case "3":
-
+                        //lave vareoptælling
                     case "4":
-                        Customer newCustomer = customerRepository.AddCustomer();
+                        customerRepository.AddCustomer();
+                        break;
+                    case "5":
+                        requestRepository.AddRequests();//opretter ny forespørgsel
+                        break;
+                    case "6":
+
+                        requestRepository.ShowRequests();//viser hvilke requests som allerede er opprettet
+                        break;
+                    case "7":
+                        customerRepository.ShowCustomers();
                         break;
 
                 }
@@ -145,6 +157,13 @@ namespace Genspil
                     Console.WriteLine("Ugyldig input. Tast et nummer");
                 }
 
+                Console.WriteLine("Antal spil: ");
+                int numberOfGames;
+                while (!int.TryParse(Console.ReadLine(), out numberOfGames))
+                {
+                    Console.WriteLine("Ugyldig input. Tast et nummer");
+                }
+
                 Console.WriteLine("Tilstand (tast et nummer): 1.New 2.Used, 3.Good, 4.Ok, 5.Damaged): ");
                 int conditionChoice;
 
@@ -172,7 +191,7 @@ namespace Genspil
                 GameStorage.GameStatus status = (GameStorage.GameStatus)statusChoice - 1;
 
                 // Tilføjer det nye spil ved at bruge GameManager
-                GameStorage.GameManager.AddGame(title, edition, basePrice, genre, numberOfPlayers, conditionChoice, status);
+                GameStorage.GameManager.AddGame(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, conditionChoice, status);
 
                 // Viser det nye spil der er tilføjet. 
                 GameStorage.GameManager.DisplayInventory();

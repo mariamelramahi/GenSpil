@@ -58,26 +58,7 @@ namespace Genspil
                 Console.WriteLine(ex.Message);
             }
         }
-        public Customer FindCustomer()
-        {
-            Console.WriteLine("Tryk hvilken som helst tast efterfulgt af enter for at få kunder frem: ");
-            string customer = Console.ReadLine();
-            int i = 0;
-            string filename = DataFileName;
-            foreach (string line in File.ReadAllLines(filename))
-            {
-                string[] parts = line.Split(';');
-                foreach (string part in parts)
-                {
-                    Console.WriteLine("{0}:{1}", i, part);
-                }
-                i++; // For demonstration.
-            }
-
-            //if(customer== parts)
-            //{Console.WriteLine(customer + " findes i systemet")
-            return new Customer(customer, customer, customer, customer);//skal erstattes med rigitg søgekald fra kundeliste
-        }
+ 
         public Customer AddCustomer()//en public metode som tilfæjer en Customer fra konsolinput til repository og returnerer den
         {
             Console.Write("Indtast venligst fornavn: ");
@@ -107,5 +88,14 @@ namespace Genspil
             }
             return null;
         }
+        public void ShowCustomers()
+        {
+            Customer.PrintToUserHeader();
+            foreach (Customer customer in Customers)
+            {
+                Console.WriteLine(customer.PrintToUser());
+            }
+        }
+
     }
 }

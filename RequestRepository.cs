@@ -13,10 +13,12 @@ namespace Genspil
         private readonly string path = "Requests.txt";//betyder at ingen andre kan sætte en anden værdi på contenstringen
         //private string contents = "Hello\nWorld";
         public List<Request> Requests = new List<Request>();
+        public CustomerRepository CustomerRepository;
         
         public RequestRepository(CustomerRepository customerRepository) 
         {
-            LoadRequests(customerRepository);
+            this.CustomerRepository = customerRepository;
+            LoadRequests();
         }
         public void SaveRequests()
         {
@@ -32,11 +34,11 @@ namespace Genspil
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error while saving requests " + ex.Message);
             }
         }
         
-        public void LoadRequests(CustomerRepository customerRepository)
+        public void LoadRequests()
         {
             try
             {
@@ -46,7 +48,7 @@ namespace Genspil
                     while ((line = reader.ReadLine()) != null)
                     {
                         string[] data = line.Split(';');
-                        Customer customer = customerRepository.FindByName(data[1], data[2]);
+                        Customer customer = CustomerRepository.FindByName(data[1], data[2]);
                         Request request = new Request(data[0], customer);
                         Requests.Add(request);
                     }
@@ -54,10 +56,10 @@ namespace Genspil
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error while saving request " + ex.Message);
             }
         }
-        public Request AddRequests(CustomerRepository cr)
+        public Request AddRequests()
         {
             Console.WriteLine("Vil du søge efter eksisterende kunde (1), eller oprette en ny kunde? (2): ");
             int answer = int.Parse(Console.ReadLine());
@@ -68,21 +70,21 @@ namespace Genspil
                 string firstname = Console.ReadLine();
                 Console.WriteLine("Indtast efternavn: ");
                 string lastname = Console.ReadLine();
-                customer = cr.FindByName(firstname, lastname);
+                customer = CustomerRepository.FindByName(firstname, lastname);
                 if (customer == null)
                 {
                     Console.WriteLine("Kunde ikke fundet");
-                    return AddRequests(cr);
+                    return AddRequests();
                 }
             }
             else if (answer == 2)
             {
-                customer = cr.AddCustomer();
+                customer = CustomerRepository.AddCustomer();
             }
             else
             {
                 Console.WriteLine("Ugyldigt input, prøv igen: ");
-                return AddRequests(cr);//rekursivt kald 
+                return AddRequests();//rekursivt kald 
             }
             Console.WriteLine("Indtast navn på spil: ");
             string title = Console.ReadLine();
@@ -91,6 +93,14 @@ namespace Genspil
             Requests.Add(request);
 
             return request;
+        }
+        public void ShowRequests()
+        {
+            Request.PrintToUserHeader();
+            foreach (Request request in Requests)
+            {
+                Console.WriteLine(request.PrintToUser());
+            }
         }
     }
 

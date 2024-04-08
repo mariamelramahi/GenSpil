@@ -9,9 +9,9 @@ namespace Genspil
         public string DataFileName { get; }
 
         // Constructor to intialize DataFileName
-        public DataHandler(string dataFileName)
+        public DataHandler()
         {
-            DataFileName = dataFileName;
+            DataFileName = "Gamestorage.txt";
         }
 
         // Method to save games to a file 
