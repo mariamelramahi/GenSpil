@@ -29,8 +29,8 @@ namespace Genspil
                 menu.AddMenuItem("Se hvilke forespørgsler på spil der ligger i systemet: ", " se hvilke forespørgsler på spil der ligger i systemet\n");
                 menu.AddMenuItem("Se eksisterende kunder", " se eksisterende kunder\n");
                 menu.Show();
-                Console.WriteLine("  \nVælg noget fra menuen: ");
-                string answer = Console.ReadLine();
+
+                string answer = GetUserInput("  \nVælg noget fra menuen: ");
 
 
                 int selection = menu.SelectMenuItem();
@@ -39,8 +39,7 @@ namespace Genspil
                 switch (answer)
                 {
                     case "1":
-                        Console.Write("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                        string titel = Console.ReadLine();
+                        string titel = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
                         FindGame.Search(titel, gameData);
                         break;
 
@@ -70,8 +69,7 @@ namespace Genspil
                 //string answer = menu.GetAnswer(selection);
 
                 Console.WriteLine(answer);
-                Console.WriteLine("Søg igen? (1)Nej (2)Ja (3)Afslut");
-                int answer2 = int.Parse(Console.ReadLine());
+                int answer2 = int.Parse(GetUserInput("Søg igen? (1)Nej (2)Ja (3)Afslut"));
 
                 Console.Clear();
 
@@ -81,36 +79,33 @@ namespace Genspil
                 }
                 else if (answer2 == 2)
                 {
-                    Console.Write("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                    string titel = Console.ReadLine();
+                    string titel = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
                     FindGame.Search(titel, gameData);
                     
-
-                    Console.Write("Søg igen? (1)Nej (2)Ja ");
 
                     while (true)
                     {
                         try
                         {
-                            int svar = int.Parse(Console.ReadLine());
+                            int svar = int.Parse(GetUserInput("Søg igen? (1)Nej (2)Ja "));
                             if (svar == 1)
                             {
                                 Console.WriteLine("Tryk på en vilkårlig tast for at gå tilbage til menuen.");
-                                //menu.Show();
+
                                 break;
                             }
                             else if (svar == 2)
                             {
-                                Console.Write("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                                string titel2 = Console.ReadLine();
+                                string titel2 = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
                                 FindGame.Search(titel2, gameData);
-                                
-
-                                Console.Write("Søg igen? (1)Nej (2)Ja: ");
                             }
                             else { Console.Write("Ugyldigt input. Prøv igen (Nej: 1/Ja: 2): "); }
                         }
-                        catch (Exception ex) { Console.Write("Input er i et ugyldigt format. Prøv igen (Nej: 1/Ja: 2): "); }
+                        catch (Exception ex) 
+                        { 
+                            Console.WriteLine("Error: " +  ex.Message);
+                            Console.Write("Input er i et ugyldigt format. Prøv igen (Nej: 1/Ja: 2): "); 
+                        }
 
                     }
 
@@ -134,21 +129,16 @@ namespace Genspil
             {
                 GameStorage.GameManager gameManager = new GameStorage.GameManager();
 
-                Console.WriteLine("Titel: ");
-                string title = Console.ReadLine();
-
-                Console.WriteLine("Udgave: ");
-                string edition = Console.ReadLine();
-
+                string title = GetUserInput("Titel: ");
+                string edition = GetUserInput("Udgave: ");
                 Console.WriteLine("Basepris: ");
+
                 decimal basePrice;
                 while (!decimal.TryParse(Console.ReadLine(), out basePrice))
                 {
                     Console.WriteLine("Ugyldig input. Tast et nummer");
                 }
-
-                Console.WriteLine("Genre: ");
-                string genre = Console.ReadLine();
+                string genre = GetUserInput("Genre");
 
                 Console.WriteLine("Antal spillere: ");
                 int numberOfPlayers;
@@ -197,15 +187,44 @@ namespace Genspil
                 GameStorage.GameManager.DisplayInventory();
 
                 //Mullighed for at fortsætte med at tilføje spil eller vende tilbage til hovedemenu. 
-                Console.WriteLine("Vælg: 1.Tilføj et nyt spil igen \n 2.Vende tilbage til hovedemenu. ");
-                string answer = Console.ReadLine();
+                string answer = GetUserInput("Vælg: 1.Tilføj et nyt spil igen \n 2.Vende tilbage til hovedemenu. ");
 
 
             }
         }
 
-       
-        
-        
+        public static string GetUserInput(string initialGreeting)
+        {
+            Console.Write(initialGreeting);
+            string? result;
+            while (true)
+            {
+                result = Console.ReadLine();
+                if (result != null)
+                {
+                    return result;
+                }
+                else
+                {
+                    Console.WriteLine("Ugyldigt input. Prøv igen: ");
+                }
+            }
+
+        }
+        public static string GetUserInput2()
+        {
+            string? result = Console.ReadLine();
+            if (result != null)
+            {
+                return result;
+            }
+            else
+            {
+                Console.WriteLine("Ugyldigt input. Prøv igen: ");
+                return GetUserInput2();
+            }
+        }
+
+
     }
 }
