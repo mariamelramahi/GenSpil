@@ -151,7 +151,18 @@ namespace Genspil
                     Console.WriteLine(); // Add a blank line for readability
                 }
             }
+            
+            public static void DisplayInventoryByGenre()
+            {
+                var sortedGames = gamesarray.OrderBy(g => g.Genre);
+                DisplayInventory(sortedGames);
+            }
 
+            public static void DisplayInventoryByTitle()
+            {
+                var sortedGames = gamesarray.OrderBy(g =>g.Title);
+                DisplayInventory(sortedGames);
+            }
         }
 
 }   }
