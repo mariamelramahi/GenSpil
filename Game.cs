@@ -79,54 +79,41 @@ namespace Genspil
 
         public class GameData
         {
-            public GameInfo[] Games { get; set; } // array to store game information
 
             public GameData()
             {
-                Games = new GameInfo[]
-                {
-                    new GameInfo("Chess", "Standard Edition", 80m, "Board", 2, 3, GameCondition.New, GameStatus.Available),
-                    new GameInfo("Monopoly", "Limited Edition", 90m, "Board", 4, 2, GameCondition.Good, GameStatus.OnItsWay),
-                    new GameInfo("Monopoly", "German Edition", 70m, "Board", 4, 1, GameCondition.Ok, GameStatus.Reserved),
-                    new GameInfo("Bad People", "Standard Edition", 40m, "Card", 3-10, 4, GameCondition.Good, GameStatus.Available)
-                };
+                GameManager.AddGame("Chess", "Standard Edition", 80m, "Board", 2, 3, 0, GameStatus.Available);
+                GameManager.AddGame("Monopoly", "Limited Edition", 90m, "Board", 4, 2, 2, GameStatus.OnItsWay);
+                GameManager.AddGame("Monopoly", "German Edition", 70m, "Board", 4, 1, 3, GameStatus.Reserved);
+                GameManager.AddGame("Bad People", "Standard Edition", 40m, "Card", 3 - 10, 4, 2, GameStatus.Available);
+
             }
         }
 
         public class GameManager
         {
             // Array to store game information
-            private static GameInfo[] gamesarray = new GameInfo[100]; //Assuming a maximum of 100 games
-            private static int nextIndex = 0; // Keep track of the next available index in the array
+            public static List<GameInfo> gamesarray = new List<GameInfo>() ; 
 
             // Method to add a game directly into the array
             public static void AddGame(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int numberOfGames, int conditionChoice, GameStatus status)
             {
-                if (nextIndex < gamesarray.Length)
-                {
+                
                     // Input bliver henvist til GameCondition enum
                     GameCondition condition = (GameCondition)(conditionChoice - 1);
 
                     // Ny spil bliver tilføjet bliver baseret udfra condition og status.
                     GameInfo newGame = new GameInfo(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
+                    gamesarray.Add(newGame);
 
-                    // Nyt spil bliver tilføjet til array
-                    gamesarray[nextIndex] = newGame;
-                    nextIndex++;
+            
                     Console.WriteLine("Game added successfully.");
-
-                }
-                else
-                {
-                    Console.WriteLine("Inventory is filled");
-                }
             }
 
             
             public static void DisplayInventory(List<GameInfo> games )
             {
                 
-                Console.WriteLine("Lagerbeholdning:");
                 Console.WriteLine("Lagerbeholdning:");
                 foreach (var game in games) 
                 {

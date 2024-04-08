@@ -8,10 +8,10 @@ namespace Genspil
 {
     internal class FindGame
     {
-        public static void Search(string searchName, GameStorage.GameData gameData)
+        public static void Search(string searchName)
         {
 
-            GameStorage.GameInfo[] games = gameData.Games;
+            List<GameStorage.GameInfo> games = GameStorage.GameManager.gamesarray;
 
             var result = new List<GameStorage.GameInfo>();
 

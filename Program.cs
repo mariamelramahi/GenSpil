@@ -36,7 +36,7 @@ namespace Genspil
                 {
                     case "1":
                         string titel = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                        FindGame.Search(titel, gameData);
+                        FindGame.Search(titel);
                         break;
 
                     case "2":
@@ -87,7 +87,7 @@ namespace Genspil
                 else if (answer2 == 2)
                 {
                     string titel = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                    FindGame.Search(titel, gameData);
+                    FindGame.Search(titel);
                     
 
                     while (true)
@@ -104,7 +104,7 @@ namespace Genspil
                             else if (svar == 2)
                             {
                                 string titel2 = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                                FindGame.Search(titel2, gameData);
+                                FindGame.Search(titel2);
                             }
                             else { Console.Write("Ugyldigt input. Prøv igen (Nej: 1/Ja: 2): "); }
                         }
