@@ -19,7 +19,7 @@ namespace Genspil
         }
         public void SaveCustomers()
         {
-            string filename = DataFileName;
+            string? filename = DataFileName;
             try
             {
                 using (StreamWriter writer = new StreamWriter(filename))
@@ -37,12 +37,12 @@ namespace Genspil
         }
         public void LoadCustomers()
         {
-            string filename = DataFileName;
+            string? filename = DataFileName;
             try
             {
                 using(StreamReader reader = new StreamReader(filename))
                 {
-                    string line;
+                    string? line;
                  
                     while ((line = reader.ReadLine()) != null)
                     {
@@ -62,13 +62,13 @@ namespace Genspil
         public Customer AddCustomer()//en public metode som tilfæjer en Customer fra konsolinput til repository og returnerer den
         {
             Console.Write("Indtast venligst fornavn: ");
-            string firstname = Console.ReadLine();
+            string? firstname = Console.ReadLine();
             Console.Write("Indtast venligst efternavn: ");
-            string lastname = Console.ReadLine();
+            string? lastname = Console.ReadLine();
             Console.Write("Indtast venligst emailadresse: ");
-            string emailadress = Console.ReadLine();
+            string? emailadress = Console.ReadLine();
             Console.Write("Indtast venligst telefonnummer: ");
-            string phonenumber = Console.ReadLine();
+            string? phonenumber = Console.ReadLine();
 
             Customer customer = new Customer(firstname, lastname, emailadress, phonenumber);
             
