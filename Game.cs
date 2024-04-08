@@ -11,8 +11,8 @@ namespace Genspil
         {
             New,
             Used,
-            Good,
-            Used, 
+            Good, 
+            //Used, - Står der to gange
             Ok,
             Damaged
         }
@@ -118,7 +118,7 @@ namespace Genspil
                 }
                 else
                 {
-                    Console.WriteLine("Inventar er fyldt");
+                    Console.WriteLine("Inventory is filled");
                 }
             }
 
