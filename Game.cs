@@ -117,7 +117,7 @@ namespace Genspil
                 }
                 else
                 {
-                    Console.WriteLine("Inventar er fyldt");
+                    Console.WriteLine("Inventory is filled");
                 }
             }
 
