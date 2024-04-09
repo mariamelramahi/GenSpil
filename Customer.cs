@@ -4,7 +4,7 @@ namespace Genspil
 {
     public class Customer
     {
-        private string firstName { get; set; } 
+        private string firstName { get; set; }
         private string lastName { get; set; }
         private string emailAddress { get; set; }
         private string phoneNumber { get; set; }
