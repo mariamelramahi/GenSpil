@@ -11,9 +11,15 @@ namespace Genspil
 
         static void Main(string[] args)
         {
-
+            
+            
             GameRepository gameRepository = new GameRepository();
-                      
+            // spil som vi kan søge efter
+            gameRepository.AddGame("Chess", "Standard Edition", 80m, "Board", 2, 3, GameStorage.GameCondition.New, GameStorage.GameStatus.Available);
+            gameRepository.AddGame("Monopoly", "Limited Edition", 90m, "Board", 4, 2, GameStorage.GameCondition.Used, GameStorage.GameStatus.OnItsWay);
+            gameRepository.AddGame("Monopoly", "German Edition", 70m, "Board", 4, 1, GameStorage.GameCondition.Damaged, GameStorage.GameStatus.Reserved);
+            gameRepository.AddGame("Bad People", "Standard Edition", 40m, "Card", 3, 4, GameStorage.GameCondition.Ok, GameStorage.GameStatus.Available);
+
             bool keeprunning = true;
             do
             {
@@ -38,20 +44,39 @@ namespace Genspil
                         break;
 
                     case "2":
-                        addNewGame();
+                        {
+
+                            string title = GetUserInput("Indtast venligst titel: ");
+                            string edition = GetUserInput("Indtast venligst edition: ");
+                            string genre = GetUserInput("Indtast venligst genre: ");
+                            Console.Write("Indtast venligst pris: ");
+                            decimal basePrice;
+                            decimal.TryParse(Console.ReadLine(), out basePrice);
+                            Console.Write("Indtast venligst antal spillere: ");
+                            int numberOfPlayers;
+                            int.TryParse(Console.ReadLine(), out numberOfPlayers);
+                            Console.Write("Indtast venligst hvor mange spil der er: ");
+                            int numberOfGames;
+                            int.TryParse(Console.ReadLine(), out numberOfGames);
+                            Console.Write("Vælg condition: 0 = new, 1 = used, 2 = good, 3 = okay, 4 = damaged");
+                            GameStorage.GameCondition condition;
+                            Enum.TryParse(Console.ReadLine(), out condition);
+                            Console.Write("Vælg gamestatus: 0 = Available, 1 = Reserved, 2 = On its way, 3 = Waitlist");
+                            GameStorage.GameStatus status;
+                            Enum.TryParse(Console.ReadLine(), out status);
+                            gameRepository.AddGame(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
+                        }
                         break;
 
                     case "3":
                         {
-                            int answer1 = int.Parse(GetUserInput("Udskriv på baggrund af genre(1) eller titel(2)?: "));
-                            if(answer1 == 1)
-                            {
-                                gameRepository.DisplayInventoryByGenre();
-                            }
-                            else if (answer1 == 2)
-                            {
-                                GameStorage.GameManager.DisplayInventoryByTitle();
-                            }                 
+                            Console.WriteLine("Enter the sorting criteria (title or genre):");
+                            string sortBy = GetUserInput(Console.ReadLine().ToLower());
+
+                            gameRepository.DisplaySortedGames(sortBy);
+
+                            
+                           
                         }
                         break; 
                     case "4":
@@ -69,7 +94,6 @@ namespace Genspil
                         break;
 
                 }
-
 
                 //string answer = menu.GetAnswer(selection);
 
@@ -120,82 +144,11 @@ namespace Genspil
                 }
             }
 
-
-
-
             while (keeprunning);
             requestRepository.SaveRequests();
             customerRepository.SaveCustomers();
             Console.WriteLine("Farvel");
 
-            //TILFØJE NYT SPIL//
-
-            //static void addNewGame()
-            //{
-            //    GameStorage.GameManager gameManager = new GameStorage.GameManager();
-
-            //    string title = GetUserInput("Titel: ");
-            //    string edition = GetUserInput("Udgave: ");
-            //    Console.WriteLine("Basepris: ");
-
-            //    decimal basePrice;
-            //    while (!decimal.TryParse(Console.ReadLine(), out basePrice))
-            //    {
-            //        Console.WriteLine("Ugyldig input. Tast et nummer");
-            //    }
-            //    string genre = GetUserInput("Genre");
-
-            //    Console.WriteLine("Antal spillere: ");
-            //    int numberOfPlayers;
-            //    while (!int.TryParse(Console.ReadLine(), out numberOfPlayers))
-            //    {
-            //        Console.WriteLine("Ugyldig input. Tast et nummer");
-            //    }
-
-            //    Console.WriteLine("Antal spil: ");
-            //    int numberOfGames;
-            //    while (!int.TryParse(Console.ReadLine(), out numberOfGames))
-            //    {
-            //        Console.WriteLine("Ugyldig input. Tast et nummer");
-            //    }
-
-            //    Console.WriteLine("Tilstand (tast et nummer): 1.New 2.Used, 3.Good, 4.Ok, 5.Damaged): ");
-            //    int conditionChoice;
-
-            //    //Tager det fra class "games", og gir condition for spillet ud fra det nummer man indtaster. 
-            //    while (!int.TryParse(Console.ReadLine(), out conditionChoice) || conditionChoice < 1 || conditionChoice > 5)
-            //    {
-            //        Console.WriteLine("Ugyldigt valg. Vælg venligst et gyldigt tilstand.");
-            //        Console.Write("Vælg tilstand (indtast nummer): ");
-            //    }
-
-            //    //Tager det fra class "games", og gir status for spillet ud fra det nummer man indtaster.
-
-            //    Console.WriteLine("Status (tast et nummer): 1.Available, 2.Reserved, 3.OnItsWay, 4.WaitList ");
-            //    int statusChoice;
-            //    while (!int.TryParse(Console.ReadLine(), out statusChoice) || statusChoice < 1 || statusChoice > 4)
-            //    {
-            //        Console.WriteLine("Ugyldigt valg. Vælg venligst et gyldigt status.");
-            //        Console.Write("Vælg status (indtast nummer): ");
-            //    }
-
-            //    // konverter conditionChoice til GameCondition enum
-            //    GameStorage.GameCondition condition = (GameStorage.GameCondition)(conditionChoice - 1);
-
-            //    // konverter statusChoice til GameStatus enum
-            //    GameStorage.GameStatus status = (GameStorage.GameStatus)statusChoice - 1;
-
-            //    // Tilføjer det nye spil ved at bruge GameManager
-            //    GameStorage.GameManager.AddGame(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, conditionChoice, status);
-
-            //    // Viser det nye spil der er tilføjet. 
-            //    GameStorage.GameManager.DisplayInventory(dataHandler.LoadGames());
-
-            //    //Mullighed for at fortsætte med at tilføje spil eller vende tilbage til hovedemenu. 
-            //    string answer = GetUserInput("Vælg: 1.Tilføj et nyt spil igen \n 2.Vende tilbage til hovedemenu. ");
-
-
-            //}
         }
 
         public static string GetUserInput(string initialGreeting)

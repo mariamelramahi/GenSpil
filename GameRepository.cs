@@ -8,13 +8,13 @@ namespace Genspil
     {
         // File name to store game data
         public string DataFileName { get; }
+        public List<GameInfo> Games { get; } = new List<GameInfo>();
+
 
         // Constructor to intialize DataFileName
         public GameRepository()
         {
             DataFileName = "GameStorage.txt";
-            // intialize game data
-            new GameData();
             LoadGames();
         }
 
@@ -103,21 +103,15 @@ namespace Genspil
 
         public void AddGame(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int numberOfGames, GameCondition condition, GameStatus status)
         {
+
             try
             {
                 // create a new game
                 var newGame = new GameInfo(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
-
-                // Retrieve exsting games 
-                var gamesdata = new GameData();
-                var gamesList = gamesdata.Games.ToList();
-
                 // Add the new game to the list 
-                gamesList.Add(newGame);
-
-
+                Games.Add(newGame);
                 // Save the updated game to the file
-                SaveGames(gamesList);
+                SaveGames(Games);
             }
 
             catch (Exception exp)
@@ -126,19 +120,7 @@ namespace Genspil
             }
         }
 
-        public class GameData
-        {
-            public List <GameInfo> Games {  get; } = new List <GameInfo>();
-
-            public GameData()
-            {
-                DataHandler dataHandler = new DataHandler();
-                dataHandler.AddGame("Chess", "Standard Edition", 80m, "Board", 2, 3, GameStorage.GameCondition.New, GameStorage.GameStatus.Available);
-                dataHandler.AddGame("Monopoly", "Limited Edition", 90m, "Board", 4, 2,GameStorage.GameCondition.Used, GameStorage.GameStatus.OnItsWay);
-                dataHandler.AddGame("Monopoly", "German Edition", 70m, "Board", 4, 1, GameStorage.GameCondition.Damaged, GameStorage.GameStatus.Reserved);
-                dataHandler.AddGame("Bad People", "Standard Edition", 40m, "Card", 3, 4, GameStorage.GameCondition.Ok, GameStorage.GameStatus.Available);
-            }
-        }
+   
 
         public void DisplaySortedGames(string sortBy)
         {

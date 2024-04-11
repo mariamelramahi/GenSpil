@@ -11,7 +11,8 @@ namespace Genspil
         public static void Search(string searchName)
         {
 
-            List<GameStorage.GameInfo> games = GameStorage.GameManager.gamesarray;
+            GameRepository gameRepository = new GameRepository();
+            List<GameStorage.GameInfo> games = gameRepository.Games;
 
             var result = new List<GameStorage.GameInfo>();
 
