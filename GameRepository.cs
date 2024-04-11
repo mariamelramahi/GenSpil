@@ -20,7 +20,7 @@ namespace Genspil
 
 
         // Method to save games to a file 
-        public void SaveGames(GameStorage.GameInfo[] games)
+        public void SaveGames(List<GameInfo> games)
         {
             string filename = DataFileName;
 
@@ -48,7 +48,7 @@ namespace Genspil
         }
 
         // Method to load games from a file 
-        public List<GameStorage.GameInfo>? LoadGames()
+        public List<GameInfo>? LoadGames()
         {
             string filename = DataFileName;
             try
@@ -71,7 +71,7 @@ namespace Genspil
                         // spilts the line by semicolons to extract game properties
                         string[] parts = line.Split(';');
                         // create a new gameinfo object using the extracted properties
-                        var game = new GameStorage.GameInfo(
+                        var game = new GameInfo(
                             parts[0],   // Title
                             parts[1],   // Edition
                             decimal.Parse(parts[2]),  // BasePrice 
@@ -109,17 +109,15 @@ namespace Genspil
                 var newGame = new GameInfo(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
 
                 // Retrieve exsting games 
-                GameData gamesdata = new GameData();
-                List<GameInfo> gamesList = new List<GameInfo>(gamesdata.Games);
+                var gamesdata = new GameData();
+                var gamesList = gamesdata.Games.ToList();
 
                 // Add the new game to the list 
                 gamesList.Add(newGame);
 
-                // Update GameData with the new list of games
-                gamesdata.Games = gamesList;
 
                 // Save the updated game to the file
-                SaveGames(gamesdata.Games);
+                SaveGames(gamesList);
             }
 
             catch (Exception exp)
@@ -130,13 +128,15 @@ namespace Genspil
 
         public class GameData
         {
+            public List <GameInfo> Games {  get; } = new List <GameInfo>();
 
             public GameData()
             {
-                AddGame("Chess", "Standard Edition", 80m, "Board", 2, 3, 0, GameStorage.GameStatus.Available);
-                AddGame("Monopoly", "Limited Edition", 90m, "Board", 4, 2, 2, GameStorage.GameStatus.OnItsWay);
-                AddGame("Monopoly", "German Edition", 70m, "Board", 4, 1, 3, GameStorage.GameStatus.Reserved);
-                AddGame("Bad People", "Standard Edition", 40m, "Card", 3 - 10, 4, 2, GameStorage.GameStatus.Available);
+                DataHandler dataHandler = new DataHandler();
+                dataHandler.AddGame("Chess", "Standard Edition", 80m, "Board", 2, 3, GameStorage.GameCondition.New, GameStorage.GameStatus.Available);
+                dataHandler.AddGame("Monopoly", "Limited Edition", 90m, "Board", 4, 2,GameStorage.GameCondition.Used, GameStorage.GameStatus.OnItsWay);
+                dataHandler.AddGame("Monopoly", "German Edition", 70m, "Board", 4, 1, GameStorage.GameCondition.Damaged, GameStorage.GameStatus.Reserved);
+                dataHandler.AddGame("Bad People", "Standard Edition", 40m, "Card", 3, 4, GameStorage.GameCondition.Ok, GameStorage.GameStatus.Available);
             }
         }
 
@@ -150,10 +150,10 @@ namespace Genspil
                 switch (sortBy.ToLower())
                 {
                     case "title":
-                        games = games.OrderBy(g => g.Title);
+                        games = games.OrderBy(g => g.Title).ToList();
                         break;
                     case "genre":
-                        games = games.OrderBy(g => g.Genre);
+                        games = games.OrderBy(g => g.Genre).ToList();
                         break;
                     default:
                         Console.WriteLine("Invalid sorting criteria. Plrase choose title or genre. ");
