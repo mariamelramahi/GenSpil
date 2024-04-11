@@ -4,13 +4,13 @@ using static Genspil.GameStorage;
 
 namespace Genspil
 {
-    public class DataHandler
+    public class GameRepository
     {
         // File name to store game data
         public string DataFileName { get; }
 
         // Constructor to intialize DataFileName
-        public DataHandler()
+        public GameRepository()
         {
             DataFileName = "GameStorage.txt";
             // intialize game data

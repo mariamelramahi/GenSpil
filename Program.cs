@@ -6,13 +6,13 @@ namespace Genspil
         //starter med at kalde dem for at lave repositories som kan bruges i programmet
         public static CustomerRepository customerRepository = new CustomerRepository();
         public static RequestRepository requestRepository = new RequestRepository(customerRepository); 
-        public static DataHandler dataHandler = new DataHandler();
+        public static GameRepository gameRepository = new GameRepository();
 
 
         static void Main(string[] args)
         {
 
-            DataHandler dataHandler = new DataHandler();
+            GameRepository gameRepository = new GameRepository();
                       
             bool keeprunning = true;
             do
@@ -46,7 +46,7 @@ namespace Genspil
                             int answer1 = int.Parse(GetUserInput("Udskriv på baggrund af genre(1) eller titel(2)?: "));
                             if(answer1 == 1)
                             {
-                                DataHandler.DisplayInventoryByGenre();
+                                gameRepository.DisplayInventoryByGenre();
                             }
                             else if (answer1 == 2)
                             {
