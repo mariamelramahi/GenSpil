@@ -1,5 +1,8 @@
 ﻿
 
+using Genspil;
+using System.Diagnostics;
+
 namespace Genspil
 {
     public class GameStorage
@@ -9,7 +12,7 @@ namespace Genspil
         {
             New,
             Used,
-            Good,
+            Good, 
             Ok,
             Damaged
         }
@@ -20,7 +23,7 @@ namespace Genspil
             Available,
             Reserved,
             OnItsWay,
-            WaitList
+            WaitList,
         }
 
         // A class representing a game
@@ -32,18 +35,20 @@ namespace Genspil
             public decimal BasePrice { get; set; }  // The original price of the game
             public string Genre { get; set; }  // Genre of the game
             public int NumberOfPlayers { get; set; }  // number of players 
+            public int NumberOfGames { get; set; } // number of games
             public GameCondition Condition { get; set; } // Condition of the game
             public GameStatus Status { get; set; }  // Status of availiblty in storage 
             public int NumberOfGames { get; set; }
 
             //Constructor 
-            public GameInfo(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, GameCondition condition, GameStatus status, int numberOfGames)
+            public GameInfo(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int numberOfGames, GameCondition condition, GameStatus status)
             {
                 Title = title;
                 Edition = edition;
                 BasePrice = basePrice;
                 Genre = genre;
                 NumberOfPlayers = numberOfPlayers;
+                NumberOfGames = numberOfGames;
                 Condition = condition;
                 Status = status;
                 NumberOfGames = numberOfGames;
@@ -72,21 +77,10 @@ namespace Genspil
 
         }
 
-        public class GameData
-        {
-            public GameInfo[] Games { get; set; } // array to store game information
+       
 
-            public GameData()
-            {
-                Games = new GameInfo[]
-                {
-                new GameInfo("Chess", "Standard Edition", 80m, "Board", 2, GameCondition.New, GameStatus.Available, 3),
-                new GameInfo("Monopoly", "Limited Edition", 90m, "Board", 4, GameCondition.Good, GameStatus.OnItsWay, 0),
-                new GameInfo("Monopoly", "German Edition", 70m, "Board", 4, GameCondition.Ok, GameStatus.Reserved, 2),
-                new GameInfo("Bad People", "Standard Ediiton", 40m, "Card", 3 - 10, GameCondition.Good, GameStatus.Available, 3) };
-            }
-        }
-    }
 
-}
+        
+
+}   }
 

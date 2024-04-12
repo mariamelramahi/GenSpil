@@ -22,14 +22,9 @@ namespace Genspil
             }
         }
 
-        public string GetAnswer(int selection)
+        public void AddMenuItem(string title)
         {
-            MenuItem menuItem = MenuItems[selection - 1];
-            return menuItem.Answer;
-        }
-        public void AddMenuItem(string title, string Answer)
-        {
-            MenuItem menuItem = new MenuItem(title, Answer);
+            MenuItem menuItem = new MenuItem(title);
             MenuItems = MenuItems.Concat(new MenuItem[] { menuItem }).ToArray();
             ItemCount = MenuItems.Length;
         }
@@ -40,7 +35,7 @@ namespace Genspil
             {
                 try
                 {
-                    int choice = int.Parse(Console.ReadLine());
+                    int choice = int.Parse(Program.GetUserInput(""));
                     if (choice <= ItemCount && choice >= 0)
                     {
                         return choice;
@@ -53,6 +48,7 @@ namespace Genspil
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine("Error: " + ex.ToString());
                     Console.WriteLine("Ugyldigt input, prøv igen: ");
                     return SelectMenuItem();
                 }

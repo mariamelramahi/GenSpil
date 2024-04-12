@@ -21,11 +21,12 @@ namespace Genspil
         }
         public string PrintToUser()
         {
-            return  GameName + "\t\t\t" + Customer.FirstName + " " + Customer.LastName;
+            return GameName + "\t\t\t" + Customer.FirstName + " " + Customer.LastName;
         }
         public static void PrintToUserHeader()
         {
             Console.WriteLine("Spilnavn\t\tKundens navn\n");
         }
     }
+
 }

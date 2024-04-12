@@ -17,18 +17,18 @@ namespace Genspil
             }
             set 
             {
-                if (value == null)
+                if (value != null)
                 {
-                    Console.WriteLine("Fornavn må bestå af en eller flere karakterer");
+                    this.firstName = value;           
                 }
                 else
                 {
-                    this.firstName = value;
+                    Console.WriteLine("Fornavn må bestå af en eller flere karakterer: ");
                 }
             }
         }
 
-        public string LastName
+        public string? LastName
         {
             get
             {
@@ -36,17 +36,17 @@ namespace Genspil
             }
             set
             {
-                if (value == null)
-                {
-                    Console.WriteLine("Efternavn må bestå af en eller flere karakterer");
-                }
-                else
+                if (value != null)
                 {
                     this.lastName = value;
                 }
+                else
+                {               
+                    Console.WriteLine("Efternavn må bestå af en eller flere karakterer");
+                }
             }
         }
-        public string EmailAdress
+        public string? EmailAdress
         {
             get
             {
@@ -54,17 +54,17 @@ namespace Genspil
             }
             set
             {
-                if (value == null)
-                {
-                    Console.WriteLine("Mailadresse må bestå af en eller flere karakterer");
-                }
-                else
+                if (value != null)
                 {
                     this.emailAddress = value;
                 }
+                else
+                {     
+                    Console.WriteLine("Mailadresse må bestå af en eller flere karakterer");
+                }
             }
         }
-        public string PhoneNumber
+        public string? PhoneNumber
         {
             get
             {
@@ -72,13 +72,13 @@ namespace Genspil
             }
             set
             {
-                if (value == null)
+                if (value != null)
                 {
-                    Console.WriteLine("Telefonnummer må bestå af en eller flere tal");
+                    this.phoneNumber = value;
                 }
                 else
                 {
-                    this.phoneNumber = value;
+                    Console.WriteLine("Telefonnummer må bestå af en eller flere tal");           
                 }
             }
         }
@@ -90,6 +90,16 @@ namespace Genspil
             this.emailAddress = emailAddress;   
             this.phoneNumber = phoneNumber;
         }
+        //public void AddCustomerToList()
+        //{
+        // List <Customer> customers = new List <Customer> ();
+        //    customers.Add(new Customer("Soren", "Ravn", "something@gmail.com", "+4512345678"));
+
+        //    foreach (Customer customer in customers)
+        //    {
+        //        Console.WriteLine(customer.);
+        //    }
+        //}
        
         public string Serialize()
         {
