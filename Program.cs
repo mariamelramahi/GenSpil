@@ -42,7 +42,7 @@ namespace Genspil
                 {
                     case "1":
                         string titel = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                        FindGame.Search(titel);
+                        FindGame.Search(titel, gameRepository.Games);
                         break;
 
                     case "2":
@@ -75,9 +75,7 @@ namespace Genspil
                             Console.WriteLine("Enter the sorting criteria (title or genre):");
                             string sortBy = GetUserInput(Console.ReadLine().ToLower());
 
-                            gameRepository.DisplaySortedGames(sortBy);
-
-                            
+                            gameRepository.DisplaySortedGames(sortBy);                           
                            
                         }
                         break; 
@@ -97,9 +95,6 @@ namespace Genspil
 
                 }
 
-                //string answer = menu.GetAnswer(selection);
-
-                Console.WriteLine(answer);
                 int answer2 = int.Parse(GetUserInput("Søg igen? (1)Nej (2)Ja (3)Afslut"));
 
                 Console.Clear();
@@ -111,7 +106,7 @@ namespace Genspil
                 else if (answer2 == 2)
                 {
                     string titel = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                    FindGame.Search(titel);
+                    FindGame.Search(titel, gameRepository.Games);
                     
 
                     while (true)
@@ -128,7 +123,7 @@ namespace Genspil
                             else if (svar == 2)
                             {
                                 string titel2 = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                                FindGame.Search(titel2);
+                                FindGame.Search(titel2, gameRepository.Games);
                             }
                             else { Console.Write("Ugyldigt input. Prøv igen (Nej: 1/Ja: 2): "); }
                         }

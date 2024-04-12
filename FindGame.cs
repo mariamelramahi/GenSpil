@@ -1,47 +1,37 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Genspil
 {
     internal class FindGame
     {
-        public static void Search(string searchName, GameStorage.GameInfo []searchTerm )
+        public static void Search(string searchName, List<GameStorage.GameInfo> games )
         {
-
-            GameRepository gameRepository = new GameRepository();
-            List<GameStorage.GameInfo> games = gameRepository.Games;
-
-            var result = new List<GameStorage.GameInfo>();
-
+            List<GameStorage.GameInfo> results = new List<GameStorage.GameInfo>();
             Console.WriteLine("\n\nSearch Result: \n");
-
-            foreach (var game in games)
+            for (int i = 0; i < games.Count; i++)
             {
-                if (game.Title.Contains(searchName))
-                {
-                    result.Add(game);
+                if (games[i].Title.Equals(searchName))
+                {                    
+                    results.Add(games[i]);                    
                 }
             }
 
-            if (result.Count == 0)
+            foreach (var result in results)
             {
-                Console.WriteLine("No games found with the provided title.");
-                return;
-            }
-
-            foreach (var game in result)
-            {
-                Console.WriteLine($"Title: {game.Title}");
-                Console.WriteLine($"Edition: {game.Edition}");
-                Console.WriteLine($"Base Price: {game.BasePrice:C}");
-                Console.WriteLine($"Genre: {game.Genre}");
-                Console.WriteLine($"Number of Players: {game.NumberOfPlayers}");
-                Console.WriteLine($"Number of Games: {game.NumberOfGames}");
-                Console.WriteLine($"Condition: {game.Condition}");
-                Console.WriteLine($"Status: {game.Status}");
+                Console.WriteLine($"Title: {result.Title}");
+                Console.WriteLine($"Edition: {result.Edition}");
+                Console.WriteLine($"Base Price: {result.BasePrice:C}");
+                Console.WriteLine($"Genre: {result.Genre}");
+                Console.WriteLine($"Number of Players: {result.NumberOfPlayers}");
+                Console.WriteLine($"Number of Games: {result.NumberOfGames}");
+                Console.WriteLine($"Condition: {result.Condition}");
+                Console.WriteLine($"Status: {result.Status}");
                 Console.WriteLine(); // Add a blank line for readability
             }
         }
