@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using static Genspil.GameStorage;
 
 namespace Genspil
@@ -156,6 +157,130 @@ namespace Genspil
             }
             
            
+        }
+        public void Search()
+        {
+            bool keepRunning = true;
+            do
+            {
+                string searchName = Program.GetUserInput("Simpel søgning \nDu kan søge efter titel, genre, pris, antal spillere, stand: ");
+
+                List<GameInfo> results = new List<GameStorage.GameInfo>();
+                Console.WriteLine("\n\nSearch Result: \n");
+            
+                try
+                {
+                    for (int i = 0; i < Games.Count; i++)
+                    {
+                        if (Games[i].Title.Contains(searchName) || Games[i].BasePrice.ToString().Contains(searchName) || Games[i].Genre.Contains(searchName) || Games[i].NumberOfPlayers.ToString().Contains(searchName) || Games[i].Condition.ToString().Contains(searchName))
+                        {
+                            results.Add(Games[i]);
+                        }
+                    }
+                    if (results.Count == 0)//tjekker om der faktisk er noget i listen ved at bruge count
+                    {
+                        string userInput = Program.GetUserInput("Det var desværre ingen spil der samsvarede med dit søg, vil du prøve igen? Ja/Nej: ");
+                        if(userInput.ToLower() != "nej")
+                        {
+                            Search();
+                        }
+                    }
+
+                    foreach (var result in results)
+                    { 
+                        Console.WriteLine();
+                        Console.WriteLine($"Title: {result.Title}");
+                        Console.WriteLine($"Edition: {result.Edition}");
+                        Console.WriteLine($"Base Price: {result.BasePrice:C}");
+                        Console.WriteLine($"Genre: {result.Genre}");
+                        Console.WriteLine($"Number of Players: {result.NumberOfPlayers}");
+                        Console.WriteLine($"Number of Games: {result.NumberOfGames}");
+                        Console.WriteLine($"Condition: {result.Condition}");
+                        Console.WriteLine($"Status: {result.Status}");
+                        Console.WriteLine(); // Add a blank line for readability
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Det er sket en fejl, prøv igen");
+                    continue;
+                }
+                string answer = Program.GetUserInput("Vil du søge igen? (ja/nej): ");
+                Console.WriteLine("---------------------------------------------------");
+                Console.Clear();
+                if (answer.ToLower() == "nej")
+                {
+                    keepRunning = false;
+                }
+            }
+            while (keepRunning);
+
+        }
+        public void AdvancedSearch()
+        {
+            bool keepRunning = true;
+            do
+            {
+                string? titel = Program.GetUserInputNullable("Avanceret søgning \nTast enter hvis du ikke ønsker at søge i pågældende felt \nIndtast titel: ");
+                string? genre = Program.GetUserInputNullable("Indtast genre: ");
+                string? price = Program.GetUserInputNullable("Indtast pris: ");
+                string? numPlayers = Program.GetUserInputNullable("Indtast antal spillere: ");
+                string? condition = Program.GetUserInputNullable("Indtast stand (New, Used, Good, Ok, Damaged): ");
+            
+                List<GameInfo> results = new List<GameInfo>();
+
+                try
+                {
+                    for (int i = 0; i < Games.Count; i++)
+                    {
+                        //null betyder bare at det ikke er noget input fra brugeren og man vil ikke søge på dette felt
+                        if ((titel == null || Games[i].Title.Contains(titel))
+                            && (genre == null || Games[i].BasePrice.ToString().Contains(price))
+                            && (price == null || Games[i].Genre.Contains(genre))
+                            && (numPlayers == null || Games[i].NumberOfPlayers.ToString().Contains(numPlayers))
+                            && (condition == null || Games[i].Condition.ToString().Contains(condition)))
+                        {
+                            results.Add(Games[i]);
+                        }
+                    }
+                
+                    if (results.Count == 0)
+                    {
+                        string userInput = Program.GetUserInput("Det var desværre ingen spil der samsvarede med dit søg, vil du prøve igen? Ja/Nej: ");
+                        if (userInput.ToLower() != "nej")
+                        {
+                            Search();
+                        }
+                    }
+                    foreach (var result in results)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine($"Title: {result.Title}");
+                        Console.WriteLine($"Edition: {result.Edition}");
+                        Console.WriteLine($"Base Price: {result.BasePrice:C}");
+                        Console.WriteLine($"Genre: {result.Genre}");
+                        Console.WriteLine($"Number of Players: {result.NumberOfPlayers}");
+                        Console.WriteLine($"Number of Games: {result.NumberOfGames}");
+                        Console.WriteLine($"Condition: {result.Condition}");
+                        Console.WriteLine($"Status: {result.Status}");
+                        Console.WriteLine(); // Add a blank line for readability
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Det er sket en fejl, prøv igen");
+                    continue;
+                }
+                string answer = Program.GetUserInput("Vil du søge igen? (ja/nej)");
+                Console.WriteLine("---------------------------------------------------");
+                Console.Clear();
+                if (answer.ToLower() == "nej")
+                {
+                    keepRunning = false;
+                }
+               
+            }
+            while (keepRunning);
         }
 
     }

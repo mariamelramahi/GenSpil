@@ -34,6 +34,7 @@ namespace Genspil
                 menu.AddMenuItem("Opret ny forespørgsel på et spil");
                 menu.AddMenuItem("Se hvilke forespørgsler på spil der ligger i systemet: ");
                 menu.AddMenuItem("Se eksisterende kunder");
+                menu.AddMenuItem("Afslutte programmet");
                 menu.Show();
 
                 string answer = GetUserInput("  \nVælg noget fra menuen: ");
@@ -41,9 +42,17 @@ namespace Genspil
                 switch (answer)
                 {
                     case "1":
-                        string titel = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                        FindGame.Search(titel, gameRepository.Games);
-                        break;
+                        int simpel = Int32.Parse(GetUserInput("Vil du lave en simpel søgning eller avanceret? \n For simpel søgning tast 1, for avanceret søgning tast 2: "));
+                        if (simpel == 1) 
+                        {                   
+                            gameRepository.Search();
+                            break;
+                        }
+                        else if (simpel == 2)
+                        {
+                            gameRepository.AdvancedSearch();
+                        }
+                        break; 
 
                     case "2":
                         {
@@ -92,53 +101,10 @@ namespace Genspil
                     case "7":
                         customerRepository.ShowCustomers();
                         break;
-
-                }
-
-                int answer2 = int.Parse(GetUserInput("Søg igen? (1)Nej (2)Ja (3)Afslut"));
-
-                Console.Clear();
-
-                if (answer2 == 3)
-                {
-                    keeprunning = false;
-                }
-                else if (answer2 == 2)
-                {
-                    string titel = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                    FindGame.Search(titel, gameRepository.Games);
-                    
-
-                    while (true)
-                    {
-                        try
-                        {
-                            int svar = int.Parse(GetUserInput("Søg igen? (1)Nej (2)Ja "));
-                            if (svar == 1)
-                            {
-                                Console.WriteLine("Tryk på en vilkårlig tast for at gå tilbage til menuen.");
-
-                                break;
-                            }
-                            else if (svar == 2)
-                            {
-                                string titel2 = GetUserInput("skriv titlen på det spil du søger efter. (Husk at skrive med stort forbogstav): ");
-                                FindGame.Search(titel2, gameRepository.Games);
-                            }
-                            else { Console.Write("Ugyldigt input. Prøv igen (Nej: 1/Ja: 2): "); }
-                        }
-                        catch (Exception ex) 
-                        { 
-                            Console.WriteLine("Error: " +  ex.Message);
-                            Console.Write("Input er i et ugyldigt format. Prøv igen (Nej: 1/Ja: 2): "); 
-                        }
-
-                    }
-
-
-
-
-                }
+                    case "8":
+                        keeprunning = false;
+                        break; 
+                }              
             }
 
             while (keeprunning);
@@ -166,20 +132,11 @@ namespace Genspil
             }
 
         }
-        public static string GetUserInput2()
+        public static string? GetUserInputNullable(string initialGreeting)
         {
-            string? result = Console.ReadLine();
-            if (result != null)
-            {
-                return result;
-            }
-            else
-            {
-                Console.WriteLine("Ugyldigt input. Prøv igen: ");
-                return GetUserInput2();
-            }
+            Console.Write(initialGreeting);
+            return Console.ReadLine(); 
         }
-
 
     }
 }

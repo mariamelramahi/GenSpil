@@ -74,7 +74,7 @@ namespace Genspil
                         return BasePrice;
                 }
             }
-
+      
         }
 
        
