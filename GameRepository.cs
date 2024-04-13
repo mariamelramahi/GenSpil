@@ -160,7 +160,7 @@ namespace Genspil
             bool keepRunning = true;
             do
             {
-                string searchName = Program.GetUserInput("Simpel søgning \nDu kan søge efter titel, genre, pris, antal spillere, stand: ");
+                string searchName = Program.GetUserInput("Simpel søgning \nDu kan søge efter titel, genre, pris, antal spillere, stand: ").ToLower();
 
                 List<GameInfo> results = new List<GameStorage.GameInfo>();
                 Console.WriteLine("\n\nSearch Result: \n");
@@ -169,7 +169,11 @@ namespace Genspil
                 {
                     for (int i = 0; i < Games.Count; i++)
                     {
-                        if (Games[i].Title.Contains(searchName) || Games[i].BasePrice.ToString().Contains(searchName) || Games[i].Genre.Contains(searchName) || Games[i].NumberOfPlayers.ToString().Contains(searchName) || Games[i].Condition.ToString().Contains(searchName))
+                        if (Games[i].Title.ToLower().Contains(searchName) 
+                            || Games[i].BasePrice.ToString().ToLower().Contains(searchName) 
+                            || Games[i].Genre.Contains(searchName) 
+                            || Games[i].NumberOfPlayers.ToString().ToLower().Contains(searchName) 
+                            || Games[i].Condition.ToString().ToLower().Contains(searchName))
                         {
                             results.Add(Games[i]);
                         }
@@ -231,11 +235,11 @@ namespace Genspil
                     for (int i = 0; i < Games.Count; i++)
                     {
                         //null betyder bare at det ikke er noget input fra brugeren og man vil ikke søge på dette felt
-                        if ((titel == null || Games[i].Title.Contains(titel))
-                            && (genre == null || Games[i].BasePrice.ToString().Contains(price))
-                            && (price == null || Games[i].Genre.Contains(genre))
-                            && (numPlayers == null || Games[i].NumberOfPlayers.ToString().Contains(numPlayers))
-                            && (condition == null || Games[i].Condition.ToString().Contains(condition)))
+                        if ((titel == null || Games[i].Title.ToLower().Contains(titel.ToLower()))
+                            && (genre == null || Games[i].BasePrice.ToString().ToLower().ToString().Contains(price.ToLower()))
+                            && (price == null || Games[i].Genre.ToLower().Contains(genre.ToLower()))
+                            && (numPlayers == null || Games[i].NumberOfPlayers.ToString().ToLower().Contains(numPlayers.ToLower()))
+                            && (condition == null || Games[i].Condition.ToString().ToLower().Contains(condition.ToLower())))
                         {
                             results.Add(Games[i]);
                         }
