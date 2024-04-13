@@ -25,7 +25,8 @@ namespace Genspil
             bool keeprunning = true;
             do
             {
-
+                AnsiConsole.Write(
+                    new FigletText("GenSpil").LeftJustified().Color(Color.Aquamarine1));
                 Menu menu = new Menu("Velkommen til Genspils lagerbeholdning, du har nu følgende valgmuligheder: ");
                 menu.AddMenuItem("Søge efter et spil på lageret");
                 menu.AddMenuItem("Tilføje nyt spil til lagerbeholdningen");
