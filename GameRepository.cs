@@ -21,17 +21,16 @@ namespace Genspil
 
 
         // Method to save games to a file 
-        public void SaveGames(List<GameInfo> games)
+        public void SaveGames()
         {
             string filename = DataFileName;
-
             try
             {
                 // Open a StreamWriter to write to the file
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
                     // Iterate trough each game and write its properties to a line in the file
-                    foreach (var game in games)
+                    foreach (var game in Games)
                     {
                         // Format of the properties
                         string line = $"{game.Title};{game.Edition};{game.BasePrice};{game.Genre};{game.NumberOfPlayers};{game.NumberOfGames};{game.Condition};{game.Status}";
@@ -111,8 +110,6 @@ namespace Genspil
                 var newGame = new GameInfo(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
                 // Add the new game to the list 
                 Games.Add(newGame);
-                // Save the updated game to the file
-                SaveGames(Games);
             }
 
             catch (Exception exp)
@@ -125,18 +122,18 @@ namespace Genspil
 
         public void DisplaySortedGames(string sortBy)
         {
-            var games = LoadGames();
+            List<GameInfo> games;
 
-            if (games != null && games.Any())
+            if (Games != null && Games.Any())
             {
                 // sort the games based on the selected criteria
                 switch (sortBy.ToLower())
                 {
                     case "title":
-                        games = games.OrderBy(g => g.Title).ToList();
+                        games = Games.OrderBy(g => g.Title).ToList();
                         break;
                     case "genre":
-                        games = games.OrderBy(g => g.Genre).ToList();
+                        games = Games.OrderBy(g => g.Genre).ToList();
                         break;
                     default:
                         Console.WriteLine("Invalid sorting criteria. Plrase choose title or genre. ");

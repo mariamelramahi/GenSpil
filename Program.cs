@@ -81,8 +81,8 @@ namespace Genspil
 
                     case "3":
                         {
-                            Console.WriteLine("Enter the sorting criteria (title or genre):");
-                            string sortBy = GetUserInput(Console.ReadLine().ToLower());
+
+                            string sortBy = GetUserInput("Enter the sorting criteria (title or genre):".ToLower());
 
                             gameRepository.DisplaySortedGames(sortBy);                           
                            
@@ -108,6 +108,7 @@ namespace Genspil
             }
 
             while (keeprunning);
+            gameRepository.SaveGames();
             requestRepository.SaveRequests();
             customerRepository.SaveCustomers();
             Console.WriteLine("Farvel");
