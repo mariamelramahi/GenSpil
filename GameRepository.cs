@@ -180,11 +180,7 @@ namespace Genspil
                     }
                     if (results.Count == 0)//tjekker om der faktisk er noget i listen ved at bruge count
                     {
-                        string userInput = Program.GetUserInput("Det var desværre ingen spil der samsvarede med dit søg, vil du prøve igen? Ja/Nej: ");
-                        if(userInput.ToLower() != "nej")
-                        {
-                            Search();
-                        }
+                        string userInput = Program.GetUserInput("Det var desværre ingen spil der samsvarede med dit søg, tryk enter ");
                     }
 
                     foreach (var result in results)
@@ -247,11 +243,7 @@ namespace Genspil
                 
                     if (results.Count == 0)
                     {
-                        string userInput = Program.GetUserInput("Det var desværre ingen spil der samsvarede med dit søg, vil du prøve igen? Ja/Nej: ");
-                        if (userInput.ToLower() != "nej")
-                        {
-                            Search();
-                        }
+                        string userInput = Program.GetUserInput("Det var desværre ingen spil der samsvarede med dit søg, tryk enter");
                     }
                     foreach (var result in results)
                     {
