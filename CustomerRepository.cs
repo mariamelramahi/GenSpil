@@ -92,6 +92,5 @@ namespace Genspil
                 Console.WriteLine(customer.PrintToUser());
             }
         }
-
     }
 }

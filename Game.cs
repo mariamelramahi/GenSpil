@@ -39,6 +39,7 @@ namespace Genspil
             public GameCondition Condition { get; set; } // Condition of the game
             public GameStatus Status { get; set; }  // Status of availiblty in storage 
 
+
             //Constructor 
             public GameInfo(string title, string edition, decimal basePrice, string genre, int numberOfPlayers, int numberOfGames, GameCondition condition, GameStatus status)
             {
@@ -50,6 +51,7 @@ namespace Genspil
                 NumberOfGames = numberOfGames;
                 Condition = condition;
                 Status = status;
+                NumberOfGames = numberOfGames;
             }
 
             // Calculating the price after condition
@@ -72,7 +74,7 @@ namespace Genspil
                         return BasePrice;
                 }
             }
-
+      
         }
 
        
