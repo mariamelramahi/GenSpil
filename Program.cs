@@ -13,8 +13,9 @@ namespace Genspil
 
         static void Main(string[] args)
         {
-            
-            
+            //Har sat det her ind i layout i stedet: AnsiConsole.Write(
+            //        new FigletText(title).LeftJustified().Color(Color.Aquamarine1));
+
             GameRepository gameRepository = new GameRepository();
             // spil som vi kan søge efter
             gameRepository.AddGame("Chess", "Standard Edition", 80m, "Board", 2, 3, GameStorage.GameCondition.New, GameStorage.GameStatus.Available);
@@ -22,40 +23,46 @@ namespace Genspil
             gameRepository.AddGame("Monopoly", "German Edition", 70m, "Board", 4, 1, GameStorage.GameCondition.Damaged, GameStorage.GameStatus.Reserved);
             gameRepository.AddGame("Bad People", "Standard Edition", 40m, "Card", 3, 4, GameStorage.GameCondition.Ok, GameStorage.GameStatus.Available);
 
-            bool keeprunning = true;
-            do
+
+
+            //Har lavet det her om til en liste
+            List<string> menuItems = new List<string>
             {
-                AnsiConsole.Write(
-                    new FigletText("GenSpil").LeftJustified().Color(Color.Aquamarine1));
-                Menu menu = new Menu("Velkommen til Genspils lagerbeholdning, du har nu følgende valgmuligheder: ");
-                menu.AddMenuItem("Søge efter et spil på lageret");
-                menu.AddMenuItem("Tilføje nyt spil til lagerbeholdningen");
-                menu.AddMenuItem("Lave vareoptælling");
-                menu.AddMenuItem("Opret ny kunde");
-                menu.AddMenuItem("Opret ny forespørgsel på et spil");
-                menu.AddMenuItem("Se hvilke forespørgsler på spil der ligger i systemet: ");
-                menu.AddMenuItem("Se eksisterende kunder");
-                menu.AddMenuItem("Afslutte programmet");
-                menu.Show();
+                "Søge efter et spil på lageret",
+                "Tilføje nyt spil til lagerbeholdningen",
+                "Lave vareoptælling",
+                "Opret ny kunde",
+                "Opret ny forespørgsel på et spil",
+                "Se hvilke forespørgsler på spil der ligger i systemet:",
+                "Se eksisterende kunder",
+                "Afslutte programmet"
 
-                string answer = GetUserInput("  \nVælg noget fra menuen: ");
+            };
 
-                switch (answer)
+            //Det står i layout og er til at lave titlen på genspil i aquafarve
+            ArrowMenu arrowMenu = new ArrowMenu("Genspil", menuItems);
+
+            while (true)
+            {
+                int selectedIndex = arrowMenu.ShowMenu();
+
+                switch (selectedIndex)
                 {
-                    case "1":
+                    case 0:
                         int simpel = Int32.Parse(GetUserInput("Vil du lave en simpel søgning eller avanceret? \n For simpel søgning tast 1, for avanceret søgning tast 2: "));
-                        if (simpel == 1) 
-                        {                   
+                        if (simpel == 1)
+                        {
                             gameRepository.Search();
                             break;
                         }
                         else if (simpel == 2)
                         {
                             gameRepository.AdvancedSearch();
+                            break;
                         }
-                        break; 
+                        break;
 
-                    case "2":
+                    case 1:
                         {
 
                             string title = GetUserInput("Indtast venligst titel: ");
@@ -77,44 +84,54 @@ namespace Genspil
                             GameStorage.GameStatus status;
                             Enum.TryParse(Console.ReadLine(), out status);
                             gameRepository.AddGame(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
+                            Console.WriteLine("\nTryk på Enter for at vende tilbage til menuen...");
+                            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { } // Wait for Enter key press
+                            break;
                         }
-                        break;
 
-                    case "3":
+                    case 2:
                         {
 
                             string sortBy = GetUserInput("Enter the sorting criteria (title or genre):".ToLower());
+                            gameRepository.DisplaySortedGames(sortBy);
+                            break;
 
-                            gameRepository.DisplaySortedGames(sortBy);                           
-                           
                         }
-                        break; 
-                    case "4":
+    
+                    case 3:
                         customerRepository.AddCustomer();
                         break;
-                    case "5":
+                    case 4:
                         requestRepository.AddRequests();//opretter ny forespørgsel
                         break;
-                    case "6":
+                    case 5:
 
                         requestRepository.ShowRequests();//viser hvilke requests som allerede er opprettet
+                        Console.WriteLine("\nTryk på Enter for at vende tilbage til menuen..."); //Har sat det her ind fordi den bliver ved med at gå ud
+                        while (Console.ReadKey(true).Key != ConsoleKey.Enter) { } 
                         break;
-                    case "7":
+                    case 6:
                         customerRepository.ShowCustomers();
+                        Console.WriteLine("\nTryk på Enter for at vende tilbage til menuen...");//Har sat det her ind fordi den bliver ved med at gå ud
+                        while (Console.ReadKey(true).Key != ConsoleKey.Enter) { } 
                         break;
-                    case "8":
-                        keeprunning = false;
-                        break; 
-                }              
+                    case 7:
+                        Environment.Exit(0); //Har lavet det om til environment exit, fordi jeg bare har lavet det til en while true og fjernet keep running
+                        break;
+
+
+
+                }
+                gameRepository.SaveGames();
+                requestRepository.SaveRequests();
+                customerRepository.SaveCustomers();
+                Console.WriteLine("Farvel");
             }
 
-            while (keeprunning);
-            gameRepository.SaveGames();
-            requestRepository.SaveRequests();
-            customerRepository.SaveCustomers();
-            Console.WriteLine("Farvel");
+
 
         }
+
 
         public static string GetUserInput(string initialGreeting)
         {
