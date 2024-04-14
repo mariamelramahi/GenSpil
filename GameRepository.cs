@@ -17,7 +17,7 @@ namespace Genspil
         public GameRepository()
         {
             DataFileName = "GameStorage.txt";
-            LoadGames();
+
         }
 
 
@@ -125,6 +125,7 @@ namespace Genspil
 
                     // render the table 
                     AnsiConsole.Render(table);
+                    Console.ReadLine();
 
                 }
                 else

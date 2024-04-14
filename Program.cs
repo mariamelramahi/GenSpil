@@ -48,7 +48,7 @@ namespace Genspil
                 switch (selectedIndex)
                 {
                     case 0:
-                        int simpel = Int32.Parse(GetUserInput("Vil du lave en simpel søgning eller avanceret? \n For simpel søgning tast 1, for avanceret søgning tast 2: "));
+                        int simpel = Int32.Parse(GetUserInput("Vil du lave en simpel søgning eller avanceret? \n For simpel søgning tast 1, for avanceret søgning tast 2, for at se alle spil tast 3: "));
                         if (simpel == 1)
                         {
                             gameRepository.Search();
@@ -59,6 +59,12 @@ namespace Genspil
                             gameRepository.AdvancedSearch();
                             break;
                         }
+                        else if (simpel == 3)
+                        {
+                            gameRepository.LoadGames();
+                            break; 
+                        }
+
                         break;
 
                     case 1:
