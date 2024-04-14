@@ -109,7 +109,7 @@ namespace Genspil
 
 
                     // Add game data rows
-                    foreach (var game in games)½
+                    foreach (var game in games)
                     {
                         table.AddRow(
                             new Markup(game.Title), //.Color(Color.Yellow),
