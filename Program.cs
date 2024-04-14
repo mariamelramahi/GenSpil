@@ -13,8 +13,7 @@ namespace Genspil
 
         static void Main(string[] args)
         {
-            //Har sat det her ind i layout i stedet: AnsiConsole.Write(
-            //        new FigletText(title).LeftJustified().Color(Color.Aquamarine1));
+    
 
             GameRepository gameRepository = new GameRepository();
             // spil som vi kan søge efter
@@ -94,6 +93,7 @@ namespace Genspil
 
                             string sortBy = GetUserInput("Enter the sorting criteria (title or genre):".ToLower());
                             gameRepository.DisplaySortedGames(sortBy);
+                            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { } // Wait for Enter key press
                             break;
 
                         }

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using static Genspil.GameStorage;
+using Spectre.Console;
 
 namespace Genspil
 {
@@ -86,7 +87,51 @@ namespace Genspil
                         games.Add(game);
                     }
                 }
-                // return
+
+                // display the loaded games in a table
+                if (games != null && games.Any()) 
+                {
+                    var table = new Table();
+                    table.Border = TableBorder.Rounded;
+
+                    // Define different colors for each column
+                    var headerStyle = new Style().Foreground(Color.Yellow);
+
+                    // Add coloumn headers
+                    table.AddColumn(new TableColumn("Title").Header("Title").HeaderStyle(headerStyle));
+                    table.AddColumn(new TableColumn("Edition").Header("Edition").HeaderStyle(headerStyle));
+                    table.AddColumn(new TableColumn("Base Price").Header("Base Price").HeaderStyle(headerStyle));
+                    table.AddColumn(new TableColumn("Genre").Header("Genre").HeaderStyle(headerStyle));
+                    table.AddColumn(new TableColumn("Number of Players").Header("Number of Players").HeaderStyle(headerStyle));
+                    table.AddColumn(new TableColumn("Number of Games").Header("Number of Games").HeaderStyle(headerStyle));
+                    table.AddColumn(new TableColumn("Condition").Header("Condition").HeaderStyle(headerStyle));
+                    table.AddColumn(new TableColumn("Status").Header("Status").HeaderStyle(headerStyle));
+
+
+                    // Add game data rows
+                    foreach (var game in games)
+                    {
+                        table.AddRow(
+                            new Markup(game.Title).Color(Color.Yellow),
+                            new Markup(game.Edition).Color(Color.Yellow),
+                            new Markup(game.BasePrice.ToString("C")).Color(Color.Yellow),
+                            new Markup(game.Genre).Color(Color.Yellow),
+                            new Markup(game.NumberOfPlayers.ToString()).Color(Color.Yellow),
+                            new Markup(game.NumberOfGames.ToString()).Color(Color.Yellow),
+                            new Markup(game.Condition.ToString()).Color(Color.Yellow),
+                            new Markup(game.Status.ToString()).Color(Color.Yellow)
+                        );
+                    }
+
+                    // render the table 
+                    AnsiConsole.Render(table);
+
+                }
+                else
+                {
+                    Console.WriteLine("No games found.");
+                }
+
                 return games;
 
             }
