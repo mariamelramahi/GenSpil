@@ -65,6 +65,8 @@ namespace Genspil
         }
         public Request AddRequests()
         {
+            ArrowMenu.LayoutForsørgsel();
+
             int answer = int.Parse(Program.GetUserInput("Vil du søge efter eksisterende kunde (1), eller oprette en ny kunde? (2): "));
             Customer? customer; //findes en variabel af typen Customer som vi kalder for customer. Den har foreløpig ingen værdi, så den har værdien null implicit. 
             if (answer == 1)
@@ -90,12 +92,15 @@ namespace Genspil
             string title = Program.GetUserInput("Indtast navn på spil: ");
             Request request = new Request(title, customer);
 
+            ArrowMenu.InformationTilføjetLayout();
+
             Requests.Add(request);
 
             return request;
         }
         public void ShowRequests()
         {
+            ArrowMenu.RequestsLayout();
             Request.PrintToUserHeader();
             foreach (Request request in Requests)
             {

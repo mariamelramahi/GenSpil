@@ -190,7 +190,10 @@ namespace Genspil
                 Console.WriteLine("Sorted Games:");
                 foreach (var game in games)
                 {
-                    Console.WriteLine ($"Title: {game.Title}, Genre: {game.Genre}");
+                    Console.WriteLine($"Titel:         \tGenre:");
+                    Console.WriteLine($"{game.Title,-10}\t{game.Genre,-10}");
+                    Console.WriteLine($"                            ");
+                    Console.ResetColor();
                 }
             }
 
@@ -321,6 +324,7 @@ namespace Genspil
             }
             while (keepRunning);
         }
+     
 
     }
 

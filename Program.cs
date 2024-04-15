@@ -48,6 +48,8 @@ namespace Genspil
                 switch (selectedIndex)
                 {
                     case 0:
+                        ArrowMenu.SearchGameLayout();
+
                         int simpel = Int32.Parse(GetUserInput("Vil du lave en simpel søgning eller avanceret? \n For simpel søgning tast 1, for avanceret søgning tast 2, for at se alle spil tast 3: "));
                         if (simpel == 1)
                         {
@@ -69,6 +71,7 @@ namespace Genspil
 
                     case 1:
                         {
+                            ArrowMenu.AddGameLayout();
 
                             string title = GetUserInput("Indtast venligst titel: ");
                             string edition = GetUserInput("Indtast venligst edition: ");
@@ -89,6 +92,9 @@ namespace Genspil
                             GameStorage.GameStatus status;
                             Enum.TryParse(Console.ReadLine(), out status);
                             gameRepository.AddGame(title, edition, basePrice, genre, numberOfPlayers, numberOfGames, condition, status);
+
+                            ArrowMenu.AddGameLayout2();
+
                             Console.WriteLine("\nTryk på Enter for at vende tilbage til menuen...");
                             while (Console.ReadKey(true).Key != ConsoleKey.Enter) { } // Wait for Enter key press
                             break;
@@ -98,25 +104,33 @@ namespace Genspil
                         {
 
                             string sortBy = GetUserInput("Enter the sorting criteria (title or genre):".ToLower());
+
+                            ArrowMenu.SorteredeSpilLayout();
+
                             gameRepository.DisplaySortedGames(sortBy);
-                            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { } // Wait for Enter key press
+                            Console.WriteLine("\nTryk på Enter for at vende tilbage til menuen..."); 
+                            while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
                             break;
 
                         }
     
                     case 3:
                         customerRepository.AddCustomer();
+
                         break;
                     case 4:
                         requestRepository.AddRequests();//opretter ny forespørgsel
+                        Console.WriteLine("\nTryk på Enter for at vende tilbage til menuen...");
+                        while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
                         break;
                     case 5:
 
                         requestRepository.ShowRequests();//viser hvilke requests som allerede er opprettet
-                        Console.WriteLine("\nTryk på Enter for at vende tilbage til menuen..."); //Har sat det her ind fordi den bliver ved med at gå ud
+                        Console.WriteLine("\nTryk på Enter for at vende tilbage til menuen..."); 
                         while (Console.ReadKey(true).Key != ConsoleKey.Enter) { } 
                         break;
                     case 6:
+                        ArrowMenu.EksisterendeKunderLayout();
                         customerRepository.ShowCustomers();
                         Console.WriteLine("\nTryk på Enter for at vende tilbage til menuen...");//Har sat det her ind fordi den bliver ved med at gå ud
                         while (Console.ReadKey(true).Key != ConsoleKey.Enter) { } 

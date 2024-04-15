@@ -61,17 +61,38 @@ namespace Genspil
  
         public Customer AddCustomer()//en public metode som tilfæjer en Customer fra konsolinput til repository og returnerer den
         {
+            ArrowMenu.LayoutkundeInformation();
+
             string firstname = Program.GetUserInput("Indtast venligst fornavn: ");            
             string lastname = Program.GetUserInput("Indtast venligst efternavn: ");         
             string emailadress = Program.GetUserInput("Indtast venligst emailadresse: ");          
-            string phonenumber = Program.GetUserInput("Indtast venligst tefelonnummer: ");
+            string phonenumber = Program.GetUserInput("Indtast venligst telefonnummer: ");
 
             Customer customer = new Customer(firstname, lastname, emailadress, phonenumber);
             
             Customers.Add(customer);//tilføjer kunden til repositoriets liste
 
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("              KUNDE ER OPRETTET            ");
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("Fornavn:\tEfternavn:\tEmailadresse:\tTelefonnummer:");
+            Console.WriteLine($"{firstname,-10}\t{lastname,-10}\t{emailadress,-10}\t{phonenumber,-10}");
+            Console.ResetColor();
+
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+
             return customer;//returnerer kunden så vi kan bruge den til vores request
         }
+
+
+
+      
+        
+    
         
         public Customer? FindByName(string firstname, string lastname)
         {

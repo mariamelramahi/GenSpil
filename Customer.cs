@@ -1,5 +1,7 @@
 ﻿
 
+using System.Numerics;
+
 namespace Genspil
 {
     public class Customer
@@ -11,15 +13,15 @@ namespace Genspil
 
         public string FirstName
         {
-            get 
-            { 
-                return this.firstName; 
+            get
+            {
+                return this.firstName;
             }
-            set 
+            set
             {
                 if (value != null)
                 {
-                    this.firstName = value;           
+                    this.firstName = value;
                 }
                 else
                 {
@@ -41,7 +43,7 @@ namespace Genspil
                     this.lastName = value;
                 }
                 else
-                {               
+                {
                     Console.WriteLine("Efternavn må bestå af en eller flere karakterer");
                 }
             }
@@ -59,7 +61,7 @@ namespace Genspil
                     this.emailAddress = value;
                 }
                 else
-                {     
+                {
                     Console.WriteLine("Mailadresse må bestå af en eller flere karakterer");
                 }
             }
@@ -78,20 +80,20 @@ namespace Genspil
                 }
                 else
                 {
-                    Console.WriteLine("Telefonnummer må bestå af en eller flere tal");           
+                    Console.WriteLine("Telefonnummer må bestå af en eller flere tal");
                 }
             }
         }
 
-        public Customer (string firstName, string lastName, string emailAddress, string phoneNumber) 
+        public Customer(string firstName, string lastName, string emailAddress, string phoneNumber)
         {
             this.firstName = firstName;
-            this.lastName = lastName; 
-            this.emailAddress = emailAddress;   
+            this.lastName = lastName;
+            this.emailAddress = emailAddress;
             this.phoneNumber = phoneNumber;
         }
 
-       
+
         public string Serialize()
         {
             return firstName + ";" + lastName + ";" + emailAddress + ";" + phoneNumber;
@@ -103,12 +105,15 @@ namespace Genspil
         }
         public string PrintToUser()
         {
-            return firstName + " " + lastName + " \t\t " + emailAddress + " \t\t " + phoneNumber;
+            {
+                return $"{FirstName,-20}\t{emailAddress,-30}\t{phoneNumber}";
+            }
         }
         public static void PrintToUserHeader()
         {
-            Console.WriteLine("Kundens navn\t\tEmailadresse\t\t\t Telefonnummer\n");
+            Console.WriteLine("Kundens navn\t\tEmailadresse\t\t\tTelefonnummer");
         }
     }
+}   
     
-}
+
