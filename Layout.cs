@@ -62,5 +62,155 @@ namespace Genspil
                 Console.ResetColor();
             }
         }
+
+        public static void LayoutkundeInformation()
+        {
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("                OPRET KUNDE                ");
+            Console.WriteLine("-------------------------------------------");
+            Console.ResetColor();
+            Console.WriteLine();
+
+        }
+
+
+        public static void LayoutForsørgsel()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("              OPRET FORSPØRGSEL            ");
+            Console.WriteLine("-------------------------------------------");
+            Console.ResetColor();
+            Console.WriteLine();
+
+
+        }
+
+        public static void InformationTilføjetLayout() 
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("          FORSPØRGELSEN ER TILFØJET        ");
+            Console.WriteLine("-------------------------------------------");
+
+        }
+
+
+        public static void RequestsLayout() 
+        {
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("                FORSPØRGELSER              ");
+            Console.WriteLine("-------------------------------------------");
+            Console.ResetColor();
+            Console.WriteLine();
+
+
+
+
+        }
+
+        public static void KundeLayout()
+        {
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("                    KUNDER                 ");
+            Console.WriteLine("-------------------------------------------");
+            Console.ResetColor();
+            Console.WriteLine();
+
+
+
+
+        }
+
+        public static void AddGameLayout() 
+        {
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("                  OPRET SPIL               ");
+            Console.WriteLine("-------------------------------------------");
+            Console.ResetColor();
+            Console.WriteLine();
+
+
+
+
+        }
+
+        public static void AddGameLayout2()
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("               SPIL ER TILFØJET            ");
+            Console.WriteLine("-------------------------------------------");
+
+        }
+
+
+        public static void SearchGameLayout() 
+        {
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("                  SØG SPIL                 ");
+            Console.WriteLine("-------------------------------------------");
+
+
+
+
+
+
+        }
+
+        public static void SorteredeSpilLayout() 
+        {
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("                   SPIL                    ");
+            Console.WriteLine("-------------------------------------------");
+
+
+
+
+        }
+
+        public static void EksisterendeKunderLayout() 
+        
+        {
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("            EKSISTERENDE KUNDER            ");
+            Console.WriteLine("-------------------------------------------");
+
+
+
+
+
+
+        }
+
+
+
+
+
     }
+
+
 }
+
+
+    
+
